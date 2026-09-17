@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Hem",
+    "menu": "Meny",
+    "bar": "Bar",
+    "events": "Evenemang",
+    "souvenirs": "Souvenirer",
+    "meetingRoom": "Mötesrum",
+    "contact": "Besök / Kontakt"
+  },
+  "navigation": "Huvudnavigation",
+  "languages": "Välj språk",
+  "openMenu": "Öppna menyn",
+  "closeMenu": "Stäng menyn",
+  "soon": "Kommer snart",
+  "skip": "Hoppa till innehållet",
+  "location": "Vasa, Finland",
+  "tagline": "Lite plats för gott sällskap.",
+  "eyebrow": "Kafé · Bar · Mötesplats",
+  "title": "Känn dig som hemma.",
+  "intro": "En plats att varva ner, träffas och njuta av gemenskap i Vasa.",
+  "note": "Vår plats på nätet tar form. Upptäck den på engelska, finska eller svenska.",
+  "preview": "Förhandsvisning av webbplatsen",
+  "footer": "Kaffe, samtal och stunder att dela.",
+  "status": "Snart finns det mer att upptäcka."
+}

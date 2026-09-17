@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Home",
+    "menu": "Menu",
+    "bar": "Bar",
+    "events": "Events",
+    "souvenirs": "Souvenirs",
+    "meetingRoom": "Meeting Room",
+    "contact": "Visit / Contact"
+  },
+  "navigation": "Main navigation",
+  "languages": "Choose language",
+  "openMenu": "Open navigation",
+  "closeMenu": "Close navigation",
+  "soon": "Coming soon",
+  "skip": "Skip to content",
+  "location": "Vaasa, Finland",
+  "tagline": "A little space for good company.",
+  "eyebrow": "Café · Bar · Social space",
+  "title": "Make yourself at home.",
+  "intro": "A place to slow down, meet up and enjoy being together in Vaasa.",
+  "note": "Our space online is taking shape. Explore in English, Finnish or Swedish.",
+  "preview": "Website preview",
+  "footer": "Coffee, conversation and moments worth sharing.",
+  "status": "More to discover, soon."
+}

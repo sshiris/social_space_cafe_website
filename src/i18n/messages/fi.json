@@ -1,0 +1,26 @@
+{
+  "nav": {
+    "home": "Etusivu",
+    "menu": "Ruokalista",
+    "bar": "Baari",
+    "events": "Tapahtumat",
+    "souvenirs": "Matkamuistot",
+    "meetingRoom": "Kokoustila",
+    "contact": "Vierailu / Yhteystiedot"
+  },
+  "navigation": "Päänavigaatio",
+  "languages": "Valitse kieli",
+  "openMenu": "Avaa valikko",
+  "closeMenu": "Sulje valikko",
+  "soon": "Tulossa pian",
+  "skip": "Siirry sisältöön",
+  "location": "Vaasa, Suomi",
+  "tagline": "Tilaa hyvälle seuralle.",
+  "eyebrow": "Kahvila · Baari · Kohtaamispaikka",
+  "title": "Tule kuin kotiisi.",
+  "intro": "Paikka hengähtää, tavata ja nauttia yhdessäolosta Vaasassa.",
+  "note": "Verkkosivumme rakentuvat. Tutustu englanniksi, suomeksi tai ruotsiksi.",
+  "preview": "Verkkosivun esikatselu",
+  "footer": "Kahvia, keskusteluja ja yhteisiä hetkiä.",
+  "status": "Pian lisää löydettävää."
+}
