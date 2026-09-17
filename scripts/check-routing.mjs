@@ -1,0 +1,12 @@
+import assert from 'node:assert/strict';
+import { isLocale } from '../src/i18n/locales.ts';
+import { switchLocalePath, publicRoutes } from '../src/i18n/routing.ts';
+for (const locale of ['en', 'fi', 'sv']) assert(isLocale(locale));
+for (const locale of ['de', 'EN', '', 'en-US', 'constructor']) assert(!isLocale(locale));
+assert.equal(switchLocalePath('/en', 'fi'), '/fi');
+assert.equal(switchLocalePath('/fi/events/salsa-social-september?view=list#details', 'sv'), '/sv/events/salsa-social-september?view=list#details');
+assert.equal(switchLocalePath('/sv/meeting-room', 'en'), '/en/meeting-room');
+assert.equal(switchLocalePath('/unsupported', 'fi'), '/fi');
+assert.equal(publicRoutes.length, 7);
+assert.deepEqual(publicRoutes.filter(route => route.available).map(route => route.key), ['home']);
+console.log('Routing checks passed: locale validation, nested paths, query/hash preservation and milestone navigation scope.');

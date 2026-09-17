@@ -1,46 +1,76 @@
-# Satama Social — Milestone 1
+# Satama Social — Milestone 2
 
-A Next.js App Router / TypeScript scaffold with fictional English, Finnish and
-Swedish content. No public website pages, locale routing, database, authentication,
-admin, ordering, payments or booking features have been implemented. The `/` route
-is the unmodified initializer's “Hello world!” page.
+Multilingual routing and a shared public shell for the fictional Satama Social venue
+in Vaasa / Vasa. English, Finnish and Swedish are supported. The home route is a
+minimal shell preview, not the complete home page. Menu, bar, event, souvenir, room
+and contact pages are not implemented. No database, admin or transaction features.
 
 ## Run locally
 
-Use Node.js 22.18+ and npm. Node's built-in TypeScript support lets the inspection
-script read fixtures directly without an additional runtime dependency.
-No environment variables or accounts are needed.
+Use Node.js 22.18+ and npm. No environment variables or accounts are needed.
 
 ```sh
-cd /Users/iris/social_space_website
 npm ci
 npm run dev
 ```
 
-Open http://localhost:3000. Seeing only “Hello world!” is expected for this milestone.
-Stop the server with Ctrl+C. Dependencies are already installed in this workspace;
-`npm ci` is for a fresh checkout or a clean reinstall.
+Open http://localhost:3000. It redirects to `/en`. Dependencies are already installed;
+`npm ci` is only necessary for a fresh installation. Stop the server with Ctrl+C.
+For production testing: `npm run build`, then `npm start`.
 
-## Inspect content without building pages
+## Routing and translations
+
+- `next.config.ts` redirects exactly `/` to `/en` with a temporary 307 redirect.
+- `src/app/[locale]/layout.tsx` is the root layout. It sets the correct HTML language,
+  validates locales, and wraps every future public page with the header and footer.
+- Only `en`, `fi`, `sv` are generated; unsupported locales return 404. Locale checks
+  also run in the layout, metadata generation and preview page.
+- `src/i18n/routing.ts` lists the seven agreed routes with language-independent names.
+  Only Home is enabled. Other entries are explicitly unavailable with a translated
+  coming-soon description; they are not links to missing pages.
+- `src/i18n/messages/{en,fi,sv}.json` contains interface and temporary shell-preview
+  translations. `messages.ts` enforces a matching shape. Owner-editable fixture
+  content remains separate in `src/content/demo/`.
+- The language switcher replaces only the locale prefix. Future nested paths and
+  event slugs are retained. On activation it also retains the current query and hash.
+  Language links use normal document navigation so the HTML language and entire shell
+  update together. Their initial hrefs preserve paths even before hydration; query/hash
+  preservation on activation requires JavaScript.
+
+## Shared layout
+
+- `header.tsx`: provisional wordmark, desktop navigation, language controls and a mobile
+  disclosure menu. Escape closes the menu and returns focus to its button; selecting
+  Home closes it. Language navigation reloads with a closed menu.
+- `language-switcher.tsx`: native language names in accessible labels, compact EN/FI/SV
+  controls and current-language indication.
+- `footer.tsx`: translated location, tagline and preview label.
+- `globals.css`: adjustable color/font/width tokens, system fonts, responsive layouts,
+  focus styles and a skip link. Navigation collapses below 900px. No external fonts,
+  photography or new UI dependencies are required.
+- `[locale]/page.tsx`: small translated shell preview and decorative typographic motif.
+
+## Manual checks
+
+1. Visit `/`: expect `/en`. Directly open `/en`, `/fi`, `/sv` and compare labels.
+2. Switch languages with EN/FI/SV; inspect the document's `lang` attribute.
+3. Open `/en?preview=1#main-content`, then choose FI. Query and fragment should remain.
+4. Open `/de` or `/en-US`: expect 404. `/en/menu` also returns 404 until its milestone.
+5. At desktop width, see all seven navigation entries. Only Home is enabled.
+6. At 390px and 320px width, open/close the menu, press Escape and check keyboard focus.
+7. Tab from the top: the skip link appears and moves focus to the main content.
+8. Check there is no horizontal scrolling in any language.
 
 ```sh
-npm run content:inspect -- en
-npm run content:inspect -- fi
-npm run content:inspect -- sv
-```
-
-These commands validate fixtures and print all six areas in the selected language.
-They include drafts intentionally: this is developer inspection, not a public query.
-Future public pages must handle publication/visibility, cancellations and dates.
-
-```sh
+npm run routing:check
 npm run content:check
 npm run typecheck
 npm run lint
 npm run build
+npm run content:inspect -- fi
 ```
 
-After building, `npm start` runs the production server locally.
+The inspection command also accepts `en` and `sv`; it intentionally includes drafts.
 
 ## Content model
 
@@ -74,38 +104,34 @@ After building, `npm start` runs the production server locally.
   script checks additional invariants. These developer checks do not replace future
   admin-input validation or database constraints.
 
-## File inventory
+## Milestone 2 file changes
 
-| File | Purpose |
-| --- | --- |
-| `package.json` | Dependencies, Node requirement and development/check scripts |
-| `package-lock.json` | Exact npm dependency resolution |
-| `.gitignore` | Excludes dependencies, build output and generated local files |
-| `tsconfig.json` | Strict TypeScript, `@/*` alias and direct TypeScript imports |
-| `next-env.d.ts` | Generated Next.js TypeScript declarations |
-| `next.config.ts` | Minimal Next.js configuration |
-| `eslint.config.mjs` | Next.js ESLint configuration |
-| `AGENTS.md` | Agent guidance generated by the installed Next.js tooling |
-| `CLAUDE.md` | Generated pointer to the same agent guidance |
-| `src/app/layout.tsx` | Required HTML layout and development metadata |
-| `src/app/page.tsx` | Unmodified initializer page; not the planned homepage |
-| `src/i18n/locales.ts` | Supported language codes and required translation type |
-| `src/content/types.ts` | Shared value types and six content-area types |
-| `src/content/demo/shared.ts` | Demo context, dietary labels and image placeholders |
-| `src/content/demo/opening-hours.ts` | Five area schedules and a closure exception |
-| `src/content/demo/weekly-menus.ts` | Monday–Friday menu with ten dishes |
-| `src/content/demo/bar.ts` | Bar introduction and six drinks in three categories |
-| `src/content/demo/events.ts` | Salsa and DJ events plus an unpublished draft |
-| `src/content/demo/souvenirs.ts` | Three catalogue items, including an unavailable item |
-| `src/content/demo/meeting-room.ts` | Room details, facilities, price and contact copy |
-| `src/content/demo/index.ts` | Single import entry point for demo content |
-| `scripts/inspect-content.mjs` | Fixture validation and terminal inspection |
-| `README.md` | Setup, content conventions, scope and file inventory |
+Created:
+- `src/app/[locale]/layout.tsx`
+- `src/app/[locale]/page.tsx`
+- `src/app/globals.css`
+- `src/components/layout/header.tsx`
+- `src/components/layout/footer.tsx`
+- `src/components/layout/language-switcher.tsx`
+- `src/i18n/messages.ts`
+- `src/i18n/messages/en.json`
+- `src/i18n/messages/fi.json`
+- `src/i18n/messages/sv.json`
+- `src/i18n/routing.ts`
+- `scripts/check-routing.mjs`
 
-`node_modules/`, `.next/` and `tsconfig.tsbuildinfo` are generated installation/build
-artifacts, not authored application files. No Git repository was initialized.
+Changed: `next.config.ts`, `src/i18n/locales.ts`, `package.json`, `README.md`.
+Removed: `src/app/layout.tsx`, `src/app/page.tsx` (replaced by locale-aware versions).
+Build/typecheck regenerate ignored `.next/`, `next-env.d.ts` and `tsconfig.tsbuildinfo`.
+The Milestone 1 content model and fixtures are unchanged.
 
-## Next checkpoint
+Milestone 2 stops here. Further page implementation requires approval.
 
-Milestone 1 stops here. Milestone 2 (multilingual routing and shared layout) requires
-approval before implementation begins.
+## Verification completed
+
+Production-browser checks passed for all three locales, the root 307 redirect,
+unsupported-locale 404s, query/hash-preserving language switches, desktop navigation,
+and mobile navigation at 390px and 320px. Escape/focus return, skip-link behavior,
+no horizontal overflow and no browser runtime errors were verified. TypeScript,
+ESLint, production build, routing checks and existing content checks passed.
+Browser tooling and screenshots were kept in `/tmp`, outside project dependencies.

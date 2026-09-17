@@ -7,7 +7,6 @@ import { Footer } from "@/components/layout/footer";
 import "../globals.css";
 
 export function generateStaticParams() { return locales.map((locale) => ({ locale })); }
-export const dynamicParams = false;
 
 export async function generateMetadata({ params }: LayoutProps<"/[locale]">): Promise<Metadata> {
   const { locale } = await params;

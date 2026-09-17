@@ -10,7 +10,8 @@
     "lint": "eslint",
     "typecheck": "next typegen && tsc --noEmit",
     "content:check": "node scripts/inspect-content.mjs --check",
-    "content:inspect": "node scripts/inspect-content.mjs"
+    "content:inspect": "node scripts/inspect-content.mjs",
+    "routing:check": "node scripts/check-routing.mjs"
   },
   "engines": {
     "node": ">=22.18.0"
