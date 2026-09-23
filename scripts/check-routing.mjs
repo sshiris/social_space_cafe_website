@@ -8,5 +8,6 @@ assert.equal(switchLocalePath('/fi/events/salsa-social-september?view=list#detai
 assert.equal(switchLocalePath('/sv/meeting-room', 'en'), '/en/meeting-room');
 assert.equal(switchLocalePath('/unsupported', 'fi'), '/fi');
 assert.equal(publicRoutes.length, 7);
-assert.deepEqual(publicRoutes.filter(route => route.available).map(route => route.key), ['home']);
+assert.deepEqual(publicRoutes.map(route => route.path), ['#home', '#food-coffee', '#bar', '#events', '#souvenirs', '#meeting-room', '#contact']);
+assert.equal(switchLocalePath('/en?preview=1#meeting-room', 'sv'), '/sv?preview=1#meeting-room');
 console.log('Routing checks passed: locale validation, nested paths, query/hash preservation and milestone navigation scope.');

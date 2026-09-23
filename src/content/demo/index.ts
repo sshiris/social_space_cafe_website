@@ -5,3 +5,4 @@ export { bar } from "./bar.ts";
 export { events } from "./events.ts";
 export { souvenirs } from "./souvenirs.ts";
 export { meetingRoom } from "./meeting-room.ts";
+export { venueText, coffeeDrinks } from "./venue.ts";

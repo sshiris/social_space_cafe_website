@@ -1,25 +1,24 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
+import { flushSync } from "react-dom";
 import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages";
 import { publicRoutes } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
 
-export function Header({ locale, text }: { locale: Locale; text: Messages }) {
+export function Header({ locale, text, venueName }: { locale: Locale; text: Messages; venueName: string }) {
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
-  const pathname = usePathname();
   return (
     <header className="site-header" onKeyDown={(event) => {
       if (event.key === "Escape" && open) { setOpen(false); button.current?.focus(); }
     }}>
       <div className="container header-top">
-        <Link className="brand" href={`/${locale}`} onClick={() => setOpen(false)} aria-label="Satama Social">
+        <Link className="brand" href={`/${locale}`} onClick={() => setOpen(false)} aria-label={venueName}>
           <span className="brand-mark" aria-hidden="true">s.</span>
-          <span>satama<span className="brand-subtitle">SOCIAL</span></span>
+          <span className="brand-name">{venueName}</span>
         </Link>
         <span className="header-tagline">{text.tagline}</span>
         <LanguageSwitcher locale={locale} label={text.languages} />
@@ -33,18 +32,21 @@ export function Header({ locale, text }: { locale: Locale; text: Messages }) {
         <ul className="container nav-list">
           {publicRoutes.map((route) => (
             <li key={route.key}>
-              {route.available ? (
-                <Link href={`/${locale}${route.path}`} aria-current={pathname === `/${locale}${route.path}` ? "page" : undefined}
-                  onClick={() => setOpen(false)}>{text.nav[route.key]}</Link>
-              ) : (
-                <span className="nav-unavailable" aria-disabled="true" title={text.soon}>
-                  {text.nav[route.key]}<span className="sr-only"> — {text.soon}</span>
-                </span>
-              )}
+              <a href={`/${locale}${route.path}`} onClick={(event) => {
+                if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+                const target = document.getElementById(route.path.slice(1));
+                if (target) {
+                  event.preventDefault();
+                  // Collapse the mobile menu before calculating the target's scroll position.
+                  flushSync(() => setOpen(false));
+                  window.history.pushState(null, "", `/${locale}${window.location.search}${route.path}`);
+                  target.focus({ preventScroll: true });
+                  target.scrollIntoView({ block: "start" });
+                } else setOpen(false);
+              }}>{text.nav[route.key]}</a>
             </li>
           ))}
         </ul>
-        <p className="container nav-note">{text.status}</p>
       </nav>
     </header>
   );

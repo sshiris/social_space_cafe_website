@@ -1,13 +1,14 @@
 import { isLocale, type Locale } from "./locales.ts";
 
+/** Stable section IDs are shared by all locales and preserved by the language switcher. */
 export const publicRoutes = [
-  { key: "home", path: "", available: true },
-  { key: "menu", path: "/menu", available: false },
-  { key: "bar", path: "/bar", available: false },
-  { key: "events", path: "/events", available: false },
-  { key: "souvenirs", path: "/souvenirs", available: false },
-  { key: "meetingRoom", path: "/meeting-room", available: false },
-  { key: "contact", path: "/contact", available: false },
+  { key: "home", path: "#home" },
+  { key: "menu", path: "#food-coffee" },
+  { key: "bar", path: "#bar" },
+  { key: "events", path: "#events" },
+  { key: "souvenirs", path: "#souvenirs" },
+  { key: "meetingRoom", path: "#meeting-room" },
+  { key: "contact", path: "#contact" },
 ] as const;
 
 /** Replace only the locale segment, retaining nested paths, search and hash. */

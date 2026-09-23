@@ -1,8 +1,9 @@
 import assert from "node:assert/strict";
 import * as content from "../src/content/demo/index.ts";
+import { hoursOnDate, publishedMenuForDate, upcomingEvents } from "../src/content/presentation.ts";
 import { locales } from "../src/i18n/locales.ts";
 
-const { weeklyMenus, openingHours, bar, events, souvenirs, meetingRoom } = content;
+const { weeklyMenus, openingHours, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks } = content;
 const args = process.argv.slice(2);
 const checkOnly = args.includes("--check");
 const locale = args.find((arg) => !arg.startsWith("--")) ?? "en";
@@ -99,6 +100,20 @@ assert(openingHours.some((area) => area.id === bar.areaId));
 assert(openingHours.some((area) => area.id === meetingRoom.areaId));
 assert(Number.isInteger(meetingRoom.seatedCapacity) && meetingRoom.seatedCapacity > 0);
 
+// Public presentation rules: exceptions override weekly hours; stale/draft content stays out.
+const cafe = openingHours.find(area => area.id === "cafe");
+assert.deepEqual(hoursOnDate(cafe, "2026-12-24").intervals, []);
+assert.equal(hoursOnDate(cafe, "2026-09-14").intervals[0].opens, "08:00");
+const barArea = openingHours.find(area => area.id === "bar");
+assert.equal(hoursOnDate(barArea, "2026-09-18").intervals[0].closingDayOffset, 1);
+assert.equal(publishedMenuForDate(weeklyMenus, "2026-09-14").id, "menu-2026-09-14");
+assert.equal(publishedMenuForDate(weeklyMenus, "2026-09-21"), undefined);
+assert.equal(publishedMenuForDate([{ ...weeklyMenus[0], status: "draft" }], "2026-09-14"), undefined);
+assert.equal(upcomingEvents(events, content.demoContext.referenceDate, content.demoContext.timeZone).length, 2);
+assert.equal(upcomingEvents(events, "2026-10-05", content.demoContext.timeZone).length, 0);
+assert.equal(upcomingEvents([{ ...events[0], cancelled: true }], "2026-09-14", content.demoContext.timeZone).length, 0);
+uniqueIds(coffeeDrinks, "coffee drinks");
+
 console.log("Content checks passed: three languages, prices, dates, hours, menu structure and event references.");
 if (!checkOnly) {
   console.log(`\n${content.demoContext.venueName} — ${locale} — DEMO ONLY`);
@@ -110,5 +125,5 @@ if (!checkOnly) {
     if (locales.every((language) => Object.hasOwn(value, language))) return localized(value[locale]);
     return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, localized(child)]));
   };
-  console.log(JSON.stringify(localized({ openingHours, weeklyMenus, bar, events, souvenirs, meetingRoom }), null, 2));
+  console.log(JSON.stringify(localized({ openingHours, weeklyMenus, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks }), null, 2));
 }
