@@ -3,10 +3,10 @@ import type { DemoImage, DietaryLabel } from "../types.ts";
 
 export const demoContext = {
   isDemo: true,
-  venueName: "Satama Social",
+  venueName: "salonki",
   timeZone: "Europe/Helsinki",
   referenceDate: "2026-09-14",
-  contactEmail: "hello@example.com",
+  contactEmail: "info@salonkiwasa.com",
   notice: {
     en: "Fictional venue and demo content. Prices, dietary information and translations require owner review.",
     fi: "Kuvitteellinen paikka ja esimerkkisisältö. Omistajan tulee tarkistaa hinnat, ruokavaliotiedot ja käännökset.",

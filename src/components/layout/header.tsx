@@ -7,6 +7,7 @@ import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages";
 import { publicRoutes } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
+import Image from "next/image";
 
 export function Header({ locale, text, venueName }: { locale: Locale; text: Messages; venueName: string }) {
   const [open, setOpen] = useState(false);
@@ -17,7 +18,14 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
     }}>
       <div className="container header-top">
         <Link className="brand" href={`/${locale}`} onClick={() => setOpen(false)} aria-label={venueName}>
-          <span className="brand-mark" aria-hidden="true">s.</span>
+          <span className="brand-mark" aria-hidden="true">
+            <Image
+              src="/images/logo.jpeg"
+              alt="Salonki"
+              width={48}
+              height={48}
+            />
+          </span>
           <span className="brand-name">{venueName}</span>
         </Link>
         <span className="header-tagline">{text.tagline}</span>
