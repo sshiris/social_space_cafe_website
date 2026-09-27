@@ -12,9 +12,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 .skip-link:focus { transform: translateY(0); }
 .site-header { border-bottom: 1px solid var(--line); }
 .header-top { display: flex; align-items: center; gap: 24px; min-height: 108px; }
-.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; font-family: var(--font-display); font-size: 32px; line-height: 1; }
-.brand-mark { display: grid; place-items: center; width: 48px; height: 48px; border: 1px solid var(--ink); border-radius: 50%; font-style: italic; }
-.brand-subtitle { display: block; font: 10px var(--font-body); letter-spacing: .3em; margin-top: 8px; }
+.brand { display: flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 160px; height: 100px; overflow: hidden; background: #000; border-radius: 3px; text-decoration: none; }
+/* Trim the square asset’s outer whitespace in the layout, keeping the full artwork. */
+.brand-logo { display: block; width: 100%; height: auto; flex-shrink: 0; }
 .header-tagline { margin-left: auto; font-size: 14px; color: var(--muted); }
 .language-switcher { display: flex; gap: 4px; margin-left: auto; }
 .language-switcher a { display: grid; place-items: center; min-width: 44px; min-height: 44px; font-size: 12px; font-weight: bold; text-decoration: none; border-radius: 50%; }
@@ -53,8 +53,7 @@ h1 { font-family: var(--font-display); font-size: clamp(48px, 5.8vw, 78px); font
 }
 @media (max-width: 600px) {
   .container { width: calc(100% - 36px); }
-  .brand { font-size: 25px; gap: 0; }
-  .brand-mark { display: none; }
+  .brand { width: 100px; height: 64px; }
   .header-top { gap: 6px; }
   .language-switcher { gap: 0; }
   .shell-preview { grid-template-columns: 1fr; gap: 36px; padding-block: 44px; }
@@ -66,8 +65,6 @@ h1 { font-family: var(--font-display); font-size: clamp(48px, 5.8vw, 78px); font
 }
 
 /* One-page prototype. Shared tokens above remain the branding replacement point. */
-.brand-name { font-size: 25px; }
-.brand-mark { flex-shrink: 0; }
 .prototype-banner { background: var(--soft); font-size: 12px; padding: 12px 0; }
 .prototype-banner .container { display: flex; gap: 8px 24px; flex-wrap: wrap; }
 .prototype-banner span { color: var(--muted); }
@@ -165,7 +162,6 @@ summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .food-layout, .room-grid { gap: 32px; }
   .contact-grid { gap: 40px; }
   .drink-grid { gap: 24px; }
-  .brand-name { font-size: 22px; }
 }
 @media (max-width: 700px) {
   .home-section { padding-block: 48px; }
@@ -182,7 +178,6 @@ summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .room-grid .image-placeholder { min-height: 280px; }
   .coffee-panel { padding: 24px; }
   .card-body { padding: 22px; }
-  .brand-name { font-size: 19px; max-width: 90px; line-height: 1.05; }
   .header-top { gap: 6px; }
   .item-heading { gap: 12px; }
   .room-facts { flex-wrap: wrap; gap: 16px 32px; }

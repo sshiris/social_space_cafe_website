@@ -17,16 +17,19 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
       if (event.key === "Escape" && open) { setOpen(false); button.current?.focus(); }
     }}>
       <div className="container header-top">
-        <Link className="brand" href={`/${locale}`} onClick={() => setOpen(false)} aria-label={venueName}>
-          <span className="brand-mark" aria-hidden="true">
-            <Image
-              src="/images/logo.jpeg"
-              alt="Salonki"
-              width={48}
-              height={48}
-            />
-          </span>
-          <span className="brand-name">{venueName}</span>
+        <Link
+          className="brand"
+          href={`/${locale}`}
+          onClick={() => setOpen(false)}
+        >
+          <Image
+            className="brand-logo"
+            src="/images/logo.png"
+            alt={`${venueName} Wasa`}
+            width={3710}
+            height={3710}
+            sizes="(max-width: 600px) 100px, 160px"
+          />
         </Link>
         <span className="header-tagline">{text.tagline}</span>
         <LanguageSwitcher locale={locale} label={text.languages} />
