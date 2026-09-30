@@ -8,7 +8,10 @@
     "meetingRoom": "Kokoukset & varaukset",
     "contact": "Vierailu",
     "cafe": "Kahvila & Lounge",
-    "calendar": "Kalenteri"
+    "calendar": "Kalenteri",
+    "takeaway": "Mukaan",
+    "booking": "Varaukset",
+    "market": "Puoti"
   },
   "navigation": "Päänavigaatio",
   "languages": "Valitse kieli",
@@ -86,5 +89,12 @@
     "emptyMonth": "Ei julkaistuja tapahtumia tässä kuussa.",
     "calendarNote": "Tapahtumat alkavat alla merkittyinä päivinä. Ajat ovat Vaasan paikallista aikaa.",
     "agenda": "Kuukauden ohjelma"
+  },
+  "destinations": {
+    "preview": "Vain esittely",
+    "takeawayNote": "Mukaan tilattava ruoka on Salongin verkkosivuston tuleva toiminto. Verkkotilaaminen ei ole käytössä.",
+    "bookingNote": "Vain tilan esittely. Reaaliaikainen varaus ei ole käytössä.",
+    "marketNote": "Pieni valikoima paikan päällä tutustuttavaksi. Verkko-ostaminen ei ole käytössä.",
+    "explore": "Tutustu Salonkiin"
   }
 }

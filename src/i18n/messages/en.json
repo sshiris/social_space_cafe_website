@@ -8,7 +8,10 @@
     "meetingRoom": "Meetings & Booking",
     "contact": "Visit",
     "cafe": "Café & Lounge",
-    "calendar": "Calendar"
+    "calendar": "Calendar",
+    "takeaway": "Takeaway",
+    "booking": "Booking",
+    "market": "Market"
   },
   "navigation": "Main navigation",
   "languages": "Choose language",
@@ -86,5 +89,12 @@
     "emptyMonth": "No published events this month.",
     "calendarNote": "Events start on the dates marked below. All times are local to Vaasa.",
     "agenda": "Month programme"
+  },
+  "destinations": {
+    "preview": "Preview only",
+    "takeawayNote": "Takeaway is a future part of the Salonki website. Online ordering is not available.",
+    "bookingNote": "Room information only. Live booking is not available.",
+    "marketNote": "A small selection to discover in person. Online shopping is not available.",
+    "explore": "Explore Salonki"
   }
 }

@@ -1,43 +1,53 @@
-# Salonki — paper, ink & hospitality prototype
+# Salonki — compact photographic homepage
 
-## Run and inspect
+Run `npm run dev` and open http://localhost:3000. The root redirects to `/en`.
+Use Node 22.18+ and `npm ci` for a fresh checkout. Production: `npm run build`, then `npm start`.
 
-Node 22.18+; `npm ci` for a fresh checkout, then `npm run dev`.
-Open http://localhost:3000 (redirects to `/en`). EN/FI/SV are supported.
-Production: `npm run build`, then `npm start`.
+## Homepage
 
-## Composition and content
+A near-viewport photographic hero carries the unchanged official logo and one short
+venue label. Navigation overlays the photograph on Home and uses a solid background
+on detail pages. A symmetrical six-destination grid follows immediately: three columns
+on desktop, two on tablet, one below 480px. Photography alternates with restrained
+Takeaway and Calendar typography tiles. The ending contains only contact/location,
+compact demo-day hours and the shared footer. No animation or cursor effect remains.
 
-Home moves through a charcoal café/lounge introduction with Menu CTA and demo-day hours, a short identity statement,
-cultural programme, evening atmosphere, gathering, a smaller souvenir vignette and
-compact Visit information. Charcoal, aged paper, wine and olive surfaces, serif type, offset photographic prints and original
-CSS ink contours create an editorial rhythm. The official Salonki logo is unchanged.
-These are proposed art direction and editorial copy, not confirmed business claims.
+The earlier long identity, café, event-list, atmosphere, meeting and souvenir sections
+are no longer rendered. Their useful fixtures and source images remain available.
 
-- Hero, identity, café, atmosphere, gathering and souvenir copy: `src/content/demo/story.ts`.
-- Localized location/contact: `venue.ts` and `shared.ts`.
-- Events: `events.ts` → existing `upcomingEvents(...)` → homepage (up to three).
-- Meeting capacity/enquiry label: `meeting-room.ts`.
-- Visit: `opening-hours.ts` → `hoursOnDate(...)`; only the five areas' demo-day hours.
-- Interface labels: `src/i18n/messages/{en,fi,sv}.json` (`art` adds new labels).
-- Components compose these sources; the domain content types are unchanged.
+## Destinations
 
-The reference date is **14 September 2026**, not today. Prices, schedules, room capacity,
-events and editorial copy remain demo content. Existing address/contact caveats are retained.
-The sample workshop photo is an atmosphere reference, not a claim that Salonki offers pottery.
+| Label | Route / temporary behavior |
+| --- | --- |
+| Menu | `/{locale}/menu`, existing full weekly menu |
+| Takeaway | `/{locale}/takeaway`, informational future-function preview |
+| Events | `/{locale}/calendar#month-programme`, existing shared event programme |
+| Calendar | `/{locale}/calendar`, existing month view |
+| Booking | `/{locale}/booking`, room preview with existing demo capacity |
+| Market | `/{locale}/market`, souvenir concept preview |
 
-## Temporary photography — NOT Salonki
+The three preview pages share `src/app/[locale]/[destination]/page.tsx`, with an explicit
+allowlist. Unsupported destinations return 404. No ordering, live booking or commerce
+is implied. Existing Calendar and Menu routes/data flow remain intact. The Menu return
+anchor `#food-coffee` now targets the destination grid. Language switching preserves
+routes, queries and fragments. EN/FI/SV interface labels live in `src/i18n/messages/`.
 
-The six stored photographs are temporary visual references from Pexels; five are now displayed. The café image remains available in the registry but its duplicate homepage section was removed. They do **not** depict
-Salonki's premises, people, products or events. Visible localized captions and alt text
-identify them as samples. No reference-site assets were used. Sources are licensed under
-[Pexels' license](https://www.pexels.com/license/); source records checked 2026-09-30.
+## Content and photography
 
-The single replacement registry is `src/content/demo/photography.ts`: local source,
-dimensions, photographer, original page, license, description, section and EN/FI/SV alt text.
-`SamplePhoto` uses Next Image with responsive sizes; only the hero is preloaded. Local
-WebP files total about 518 KiB. No remote-image host permissions were added. Replace a
-registry entry and its local asset to insert approved venue photography without changing layouts.
+`Homepage` uses the route registry, localized messages and centralized photo metadata.
+Visit reads `venueText`, `demoContext` and `openingHours` through `hoursOnDate(...)`.
+Shared `Hours` renders intervals, closed labels and next-day closing information.
+Preview pages use existing meeting-room and venue content. Events continue to use the
+same existing event dataset through Calendar; no calendar fixtures were duplicated.
+
+The fixed demo date is **14 September 2026**, not the current date. Schedules, prices,
+events and capacity are unconfirmed demo information; address/contact caveats remain.
+
+All photographs are temporary Pexels visual references and do **not** depict Salonki,
+its staff, products or events. No reference-site assets were used. The registry
+`src/content/demo/photography.ts` retains local sources, original URLs, creators,
+descriptions, section roles and localized alt text. Replace its asset/source entries
+when real venue photography is available. Original credits are listed below.
 
 | Role / local asset | Photographer | Original source / purpose |
 | --- | --- | --- |
@@ -48,45 +58,24 @@ registry entry and its local asset to insert approved venue photography without 
 | `meetings.webp` | Ketut Subiyanto | [Friends gathered around a small table](https://www.pexels.com/photo/a-group-of-friends-sitting-near-the-table-while-having-conversation-5054659/) |
 | `souvenirs.webp` | Pavel Danilyuk | [Ceramic cups and vessels on a shelf](https://www.pexels.com/photo/white-ceramic-bowl-on-the-shelf-7674533/) |
 
-Assets live in `public/images/demo/`. The unused earlier `PhotoSpace` component and
-photo briefs remain available; the new homepage no longer renders them.
 
-## Ink interaction
+Images are local optimized WebP files in `public/images/demo/`. Next Image provides
+responsive sizes; only the hero is preloaded. No remote image configuration was expanded.
+The grid uses café, workshop, gathering and ceramics samples. Takeaway uses typography;
+its preview page uses the existing café sample. The previous evening image is retained
+in the registry but not displayed on Home. Hero attribution is visible on the image;
+a localized sample notice is shown in the essentials, and sample alt text identifies
+all illustrative photographs. [Pexels license](https://www.pexels.com/license/).
 
-`InkTrail` is a small custom canvas component, active only over the hero and atmosphere.
-Mouse motion deposits up to 20 larger ochre dry-brush marks which fade within 950 ms. Nine irregular bristles form each mark. Drawing is clipped to the intended surfaces, with text and control rectangles erased plus an 8px margin.
-It does not change the cursor, intercept clicks, or prevent scrolling. Animation frames
-stop when the marks disappear. Scroll/resize clears the canvas, and listeners are cleaned
-up on unmount. No animation dependency was added. Touch/coarse pointers and reduced-motion
-preferences disable the effect; preference changes clear existing marks immediately.
-The static print composition remains available on every device.
+## Preserved implementation
 
-## Navigation and calendar
+`weeklyMenus → publishedMenuForDate(...) → MenuPage → WeeklyMenuView`
 
-Approved header: Menu, Events, Calendar, Meetings & Booking, Souvenirs,
-Visit. Logo and footer Home return to `/{locale}`.
+The Menu route, Menu components, presentation helper, Calendar files, core fixtures
+and photography registry were checksum-verified unchanged during this restructuring.
+Menu-specific CSS remains intact. No logo asset modification or new dependency.
 
-- Menu: `/{locale}/menu` (unchanged).
-- Calendar: `/{locale}/calendar?month=YYYY-MM` (new, server-rendered).
-- Events, Meetings, Souvenirs and Visit: existing homepage section anchors.
-- `#food-coffee` now identifies the hero copy, preserving Menu’s return link without a duplicate café section.
-- All events: calendar's month programme, a useful temporary destination until Events exists.
-- Meeting enquiry and in-person souvenirs CTA: Visit. No booking or checkout.
-
-Calendar defaults to the demo month. Invalid/duplicate month parameters fall back safely;
-accepted years are 1900–2199. The Monday-first grid links marked dates to an accessible
-programme below it. Events appear on their **start date**, with start/end times displayed
-in Europe/Helsinki. Overnight events are not duplicated on the following date.
-`events → monthView(...) → CalendarView` reuses `upcomingEvents(...)` for publication,
-cancellation and ordering rules. There are no separate calendar fixtures. Empty months
-have translated feedback. Month links preserve the locale; language switching preserves
-Home/Menu/Calendar, month query and fragment.
-
-Menu flow is preserved byte-for-byte:
-`weeklyMenus → publishedMenuForDate(...) → MenuPage → WeeklyMenuView`.
-No Menu source, shared presentation helper or menu-specific styles were changed.
-
-## Verification
+## Checks
 
 ```sh
 npm run typecheck
@@ -96,40 +85,19 @@ npm run routing:check
 npm run content:check
 ```
 
-Content checks include calendar month geometry, leap years, empty months, draft/cancelled
-filtering, Helsinki date boundaries, query validation and local photo provenance.
-Review Home/Menu/Calendar in every language at 1440, 768, 390 and 320px. Check the Menu CTA,
-all six navigation links, language switching on the selected month, mobile menu Escape,
-photo captions, keyboard focus and reduced-motion/touch behavior.
+Browser review: Home and all six destinations in EN/FI/SV; desktop, tablet, 390px and
+320px; language preservation, mobile menu/Escape, images, grid columns, root redirect,
+unsupported routes and horizontal overflow.
 
-## Future requirements — documentation only
+## Future only
 
-- Menu: choose food → order → pickup time → payment → collection.
-- Meetings: date/time → room or meeting/food/coffee package → booking → payment.
-- Souvenirs: possible future online purchasing.
+Food selection, pickup ordering and payment; live room booking with meeting/coffee
+packages and payment; possible souvenir ecommerce. None is implemented. No database,
+admin, authentication, ticket purchasing or new calendar functionality. No commit/push.
 
-No ordering, payments, database, Drizzle, admin, accounts, ticketing, live availability,
-booking or additional detail pages are implemented. Stop here for owner review.
-
-Verification completed for this revision: typecheck, lint, production build, routing,
-content checks and `git diff --check` passed. Headless Chromium checked all three
-routes in EN/FI/SV at 1440/768/390/320px with no horizontal overflow or runtime errors.
-Home screenshots and the 320px calendar were visually reviewed. Browser checks also
-covered image decoding, menu CTA, temporary anchors, language/month preservation,
-root redirect, unsupported locale, empty/invalid months, Escape, keyboard skip link,
-calendar date links, reduced motion, touch suppression and actual ink painting/fading.
-The original Menu route/components/presentation-helper checksums still match.
-
-
-## Focused homepage refinement
-
-The duplicate Café & Lounge photo/copy/Menu section was removed, along with its header
-entry and hero anchor action. The hero now introduces everyday café/lounge life, links
-directly to Menu and displays café/food-service/bar demo-day hours from the existing
-fixtures via `hoursOnDate(...)`. `Hours` is shared with Visit; closed and overnight
-intervals keep their localized labels. Weekly menus and opening-hour fixtures are intact.
-
-Palette: charcoal #252622, header/footer ink #20211e, aged paper #dfcba6, tobacco stock
-#c9ad7f, wine #512f32, olive #30352a and ochre accents. Grain layers, uneven photo crops
-and a painted programme mark add materiality. The official black logo is unchanged;
-the charcoal header, hero and footer connect it with the broader composition.
+Verification completed: typecheck, lint, production build, routing/content checks and
+`git diff --check` passed. Chromium checked EN/FI/SV at 1440, 768, 390 and 320px,
+including all six tile destinations, Menu return, mobile navigation/Escape, image
+loading, language switching on all routes, redirects and unsupported-route 404s.
+No horizontal overflow or browser runtime errors. Desktop and 320px screenshots were
+visually reviewed. No changes committed or pushed.

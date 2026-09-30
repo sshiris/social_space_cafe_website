@@ -8,7 +8,10 @@
     "meetingRoom": "Möten & bokning",
     "contact": "Besök",
     "cafe": "Kafé & Lounge",
-    "calendar": "Kalender"
+    "calendar": "Kalender",
+    "takeaway": "Takeaway",
+    "booking": "Bokning",
+    "market": "Butik"
   },
   "navigation": "Huvudnavigation",
   "languages": "Välj språk",
@@ -86,5 +89,12 @@
     "emptyMonth": "Inga publicerade evenemang denna månad.",
     "calendarNote": "Evenemangen börjar på datumen markerade nedan. Alla tider är lokal tid i Vasa.",
     "agenda": "Månadens program"
+  },
+  "destinations": {
+    "preview": "Endast förhandsvisning",
+    "takeawayNote": "Takeaway är en framtida del av Salonkis webbplats. Onlinebeställning är inte tillgänglig.",
+    "bookingNote": "Endast information om rummet. Direktbokning är inte tillgänglig.",
+    "marketNote": "Ett litet urval att upptäcka på plats. Näthandel är inte tillgänglig.",
+    "explore": "Upptäck Salonki"
   }
 }

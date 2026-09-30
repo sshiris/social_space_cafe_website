@@ -1,19 +1,31 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useRef, useState } from "react";
-import { flushSync } from "react-dom";
 import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages";
-import { publicRoutes } from "@/i18n/routing";
 import { LanguageSwitcher } from "./language-switcher";
 import Image from "next/image";
 
+// Keep the client-rendered shell independent from the mutable route registry so its
+// initial server and browser trees always contain the same navigation items.
+const primaryNavigation = [
+  ["menu", "/menu"],
+  ["takeaway", "/takeaway"],
+  ["events", "/calendar#month-programme"],
+  ["calendar", "/calendar"],
+  ["booking", "/booking"],
+  ["market", "/market"],
+] as const;
+
 export function Header({ locale, text, venueName }: { locale: Locale; text: Messages; venueName: string }) {
+  const pathname = usePathname();
+  const isHome = pathname === `/${locale}`;
   const [open, setOpen] = useState(false);
   const button = useRef<HTMLButtonElement>(null);
   return (
-    <header className="site-header" onKeyDown={(event) => {
+    <header className={`site-header ${isHome ? "over-hero" : ""}`} onKeyDown={(event) => {
       if (event.key === "Escape" && open) { setOpen(false); button.current?.focus(); }
     }}>
       <div className="container header-top">
@@ -31,7 +43,6 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
             sizes="(max-width: 600px) 100px, 160px"
           />
         </Link>
-        <span className="header-tagline">{text.tagline}</span>
         <LanguageSwitcher locale={locale} label={text.languages} />
         <button ref={button} type="button" className="menu-toggle" aria-expanded={open}
           aria-controls="public-navigation" aria-label={open ? text.closeMenu : text.openMenu}
@@ -41,20 +52,9 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
       </div>
       <nav id="public-navigation" className={`public-navigation ${open ? "is-open" : ""}`} aria-label={text.navigation}>
         <ul className="container nav-list">
-          {publicRoutes.filter((route) => route.placement === "primary").map((route) => (
-            <li key={route.key}>
-              <a href={`/${locale}${route.path}`} onClick={(event) => {
-                if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-                const target = route.kind === "section" ? document.getElementById(route.path.slice(1)) : null;
-                if (target) {
-                  event.preventDefault();
-                  // Collapse the mobile menu before calculating the target's scroll position.
-                  flushSync(() => setOpen(false));
-                  window.history.pushState(null, "", `/${locale}${window.location.search}${route.path}`);
-                  target.focus({ preventScroll: true });
-                  target.scrollIntoView({ block: "start" });
-                } else setOpen(false);
-              }}>{text.nav[route.key]}</a>
+          {primaryNavigation.map(([key, path]) => (
+            <li key={key}>
+              <a href={`/${locale}${path}`} onClick={() => setOpen(false)}>{text.nav[key]}</a>
             </li>
           ))}
         </ul>

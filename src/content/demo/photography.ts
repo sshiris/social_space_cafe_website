@@ -3,17 +3,17 @@ export const samplePhotography = {
   "hero": {
     "src": "/images/demo/hero.webp",
     "width": 1600,
-    "height": 2400,
+    "height": 1060,
     "source": "Pexels",
-    "creator": "Nadia Vasil’eva",
-    "sourceUrl": "https://www.pexels.com/photo/cafe-table-in-a-wooden-interior-lit-by-the-sunlight-13696472/",
+    "creator": "Vinh Lâm",
+    "sourceUrl": "https://www.pexels.com/photo/wood-restaurant-bar-house-12740932/",
     "licenseUrl": "https://www.pexels.com/license/",
-    "description": "Sunlight across a wooden café and green table",
+    "description": "Warm vintage café interior with wooden furniture and quiet cream walls",
     "intendedSection": "hero",
     "alt": {
-      "en": "Sunlight across a wooden café and green table",
-      "fi": "Auringonvaloa puukahvilassa ja vihreällä pöydällä",
-      "sv": "Solljus över ett träkafé och ett grönt bord"
+      "en": "Warm vintage café interior with wooden furniture and quiet cream walls",
+      "fi": "Lämminhenkinen vintagekahvila puukalusteineen ja rauhallisine vaaleine seinineen",
+      "sv": "Varmt vintagekafé med trämöbler och lugna ljusa väggar"
     }
   },
   "cafe": {
