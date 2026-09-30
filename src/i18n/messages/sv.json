@@ -5,8 +5,10 @@
     "bar": "Bar",
     "events": "Evenemang",
     "souvenirs": "Souvenirer",
-    "meetingRoom": "Träffas",
-    "contact": "Besök / Kontakt"
+    "meetingRoom": "Möten & bokning",
+    "contact": "Besök",
+    "cafe": "Kafé & Lounge",
+    "calendar": "Kalender"
   },
   "navigation": "Huvudnavigation",
   "languages": "Välj språk",
@@ -72,5 +74,17 @@
     "photo": "Fotografi kommer senare",
     "intro": "Idén med Salonki",
     "visit": "Besök Salonki"
+  },
+  "art": {
+    "samplePhoto": "Exempelbild — inte Salonki",
+    "allEvents": "Alla evenemang",
+    "dayToNight": "Från morgon till kväll",
+    "souvenirTitle": "Ett litet minne att ta med hem",
+    "exploreCalendar": "Utforska kalendern",
+    "previous": "Föregående månad",
+    "next": "Nästa månad",
+    "emptyMonth": "Inga publicerade evenemang denna månad.",
+    "calendarNote": "Evenemangen börjar på datumen markerade nedan. Alla tider är lokal tid i Vasa.",
+    "agenda": "Månadens program"
   }
 }

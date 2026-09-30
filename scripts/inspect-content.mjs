@@ -134,3 +134,28 @@ if (!checkOnly) {
   };
   console.log(JSON.stringify(localized({ openingHours, weeklyMenus, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks, venueStory, storyImages }), null, 2));
 }
+
+// Calendar uses the same public-event selector as the homepage; dates are Helsinki start dates.
+const { calendarMonth, monthView, eventLocalDate } = await import('../src/content/calendar.ts');
+const { samplePhotography } = await import('../src/content/demo/photography.ts');
+const { existsSync } = await import('node:fs');
+inspect(samplePhotography, 'samplePhotography');
+for (const photo of Object.values(samplePhotography)) {
+  assert(existsSync(new URL(`../public${photo.src}`, import.meta.url)));
+  assert.equal(new URL(photo.sourceUrl).hostname, 'www.pexels.com');
+}
+assert.equal(calendarMonth('2026-13', '2026-09-14'), '2026-09');
+assert.equal(calendarMonth(['2026-10'], '2026-09-14'), '2026-09');
+assert.equal(calendarMonth('2026-10', '2026-09-14'), '2026-10');
+const september = monthView(events, '2026-09', content.demoContext.timeZone);
+assert.equal(september.cells.length, 35);
+assert.equal(september.cells[0], null);
+assert.equal(september.cells[1].day, 1);
+assert.equal(september.programme.length, 2);
+assert.equal(september.previous, '2026-08');
+assert.equal(monthView(events, '2026-12', content.demoContext.timeZone).next, '2027-01');
+assert.equal(monthView(events, '2026-10', content.demoContext.timeZone).programme.length, 0);
+assert.equal(monthView([{...events[0], cancelled: true}], '2026-09', content.demoContext.timeZone).programme.length, 0);
+assert.equal(eventLocalDate('2026-09-18T22:30:00Z', content.demoContext.timeZone), '2026-09-19');
+assert.equal(monthView([], '2028-02', content.demoContext.timeZone).cells.filter(Boolean).length, 29);
+console.log('Calendar and sample-photo checks passed: shared events, empty months, invalid queries, leap years, timezone and local assets.');

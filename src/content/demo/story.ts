@@ -17,7 +17,7 @@ type StoryText = {
 export const venueStory = {
   "en": {
     "heroTitle": "A place to meet,\ntaste & experience.",
-    "heroLine": "Food, music and shared moments. Welcome to Salonki, Vaasa.",
+    "heroLine": "Your everyday café and lounge in Vaasa. Coffee, lunch and drinks; a place for conversation, music and shared moments.",
     "identity": "From the first coffee to the last song, Salonki is a place to spend time together. Come for lunch, stay for a conversation, find yourself in the middle of something new.",
     "eatTitle": "From coffee\nto after hours.",
     "eatBody": "A slow coffee. A proper lunch. A drink that turns into an evening. Food and hospitality bring the different hours of Salonki together.",
@@ -29,7 +29,7 @@ export const venueStory = {
   },
   "fi": {
     "heroTitle": "Paikka kohdata,\nmaistaa ja kokea.",
-    "heroLine": "Ruokaa, musiikkia ja yhteisiä hetkiä. Tervetuloa Salonkiin, Vaasaan.",
+    "heroLine": "Arjen kahvila ja lounge Vaasassa. Kahvia, lounasta ja juomia; paikka keskusteluille, musiikille ja yhteisille hetkille.",
     "identity": "Ensimmäisestä kahvista viimeiseen kappaleeseen Salonki on paikka yhdessäololle. Tule lounaalle, jää juttelemaan ja löydä itsesi jonkin uuden ääreltä.",
     "eatTitle": "Kahvihetkestä\nillan tunnelmaan.",
     "eatBody": "Kiireetön kahvi. Kunnon lounas. Juoma, josta alkaa yhteinen ilta. Ruoka ja vieraanvaraisuus yhdistävät Salongin päivän eri hetket.",
@@ -41,7 +41,7 @@ export const venueStory = {
   },
   "sv": {
     "heroTitle": "En plats att mötas,\nsmaka och uppleva.",
-    "heroLine": "Mat, musik och gemensamma stunder. Välkommen till Salonki i Vasa.",
+    "heroLine": "Ditt vardagskafé och din lounge i Vasa. Kaffe, lunch och drycker; en plats för samtal, musik och gemensamma stunder.",
     "identity": "Från första kaffet till sista låten är Salonki en plats för gemenskap. Kom för lunch, stanna för ett samtal och upptäck något nytt längs vägen.",
     "eatTitle": "Från kaffestund\ntill kvällsliv.",
     "eatBody": "En lugn kopp kaffe. En god lunch. En drink som blir till en hel kväll. Mat och gästfrihet binder samman dygnets olika stunder på Salonki.",

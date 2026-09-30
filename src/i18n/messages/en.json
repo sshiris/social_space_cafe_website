@@ -5,8 +5,10 @@
     "bar": "Bar",
     "events": "Events",
     "souvenirs": "Souvenirs",
-    "meetingRoom": "Gatherings",
-    "contact": "Visit / Contact"
+    "meetingRoom": "Meetings & Booking",
+    "contact": "Visit",
+    "cafe": "Café & Lounge",
+    "calendar": "Calendar"
   },
   "navigation": "Main navigation",
   "languages": "Choose language",
@@ -72,5 +74,17 @@
     "photo": "Photography to come",
     "intro": "The idea of Salonki",
     "visit": "Visit Salonki"
+  },
+  "art": {
+    "samplePhoto": "Sample photo — not Salonki",
+    "allEvents": "All events",
+    "dayToNight": "From morning to evening",
+    "souvenirTitle": "A little something to take home",
+    "exploreCalendar": "Explore the calendar",
+    "previous": "Previous month",
+    "next": "Next month",
+    "emptyMonth": "No published events this month.",
+    "calendarNote": "Events start on the dates marked below. All times are local to Vaasa.",
+    "agenda": "Month programme"
   }
 }
