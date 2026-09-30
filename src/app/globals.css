@@ -310,6 +310,11 @@ summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
     padding-top: calc(64px + env(safe-area-inset-top));
     background: var(--salonki-wine);
   }
+  .desktop-language-switcher { display: none; }
+  .mobile-language-switcher { display: block; padding: 0 24px 18px; }
+  .mobile-language-switcher .language-switcher { justify-content: flex-start; gap: 8px; margin: 0; }
+  .mobile-language-switcher .language-switcher a { min-width: 44px; min-height: 40px; color: var(--salonki-white); }
+  .mobile-language-switcher .language-switcher a[aria-current] { background: var(--salonki-sand); color: var(--salonki-ink); }
 }
 @media (max-width: 800px) {
   .destination-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
@@ -342,6 +347,7 @@ body { background: var(--salonki-ivory); color: var(--salonki-ink); }
 .site-header .language-switcher a[aria-current] { background: var(--salonki-sand); color: var(--salonki-ink); }
 .site-header .language-switcher a:hover { box-shadow: inset 0 0 0 1px var(--salonki-sand); }
 .site-header .menu-toggle { border-color: var(--salonki-sand); color: var(--salonki-white); }
+.mobile-language-switcher { display: none; }
 .photo-hero { background: var(--salonki-ink); }
 .hero-photograph, .destination-tile img { filter: sepia(.13) saturate(.78) contrast(.96); }
 .hero-signature p, .hero-photo-credit { color: var(--salonki-white); }
@@ -370,4 +376,12 @@ body { background: var(--salonki-ivory); color: var(--salonki-ink); }
   .footer-inner { grid-template-columns: 1fr; gap: 28px; padding-block: 38px; }
   .footer-center, .footer-location { text-align: left; }
   .footer-languages { justify-content: flex-start; }
+}
+@media (max-width: 900px) {
+  .desktop-language-switcher { display: none; }
+  .mobile-language-switcher { display: none; padding: 0 24px 18px; }
+  .public-navigation.is-open .mobile-language-switcher { display: block; }
+  .mobile-language-switcher .language-switcher { justify-content: flex-start; gap: 8px; margin: 0; }
+  .mobile-language-switcher .language-switcher a { min-width: 44px; min-height: 40px; color: var(--salonki-white); }
+  .mobile-language-switcher .language-switcher a[aria-current] { background: var(--salonki-sand); color: var(--salonki-ink); }
 }

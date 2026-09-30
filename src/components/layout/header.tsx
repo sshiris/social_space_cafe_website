@@ -43,7 +43,7 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
             sizes="(max-width: 600px) 100px, 160px"
           />
         </Link>
-        <LanguageSwitcher locale={locale} label={text.languages} />
+        <div className="desktop-language-switcher"><LanguageSwitcher locale={locale} label={text.languages} /></div>
         <button ref={button} type="button" className="menu-toggle" aria-expanded={open}
           aria-controls="public-navigation" aria-label={open ? text.closeMenu : text.openMenu}
           onClick={() => setOpen(!open)}>
@@ -51,6 +51,7 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
         </button>
       </div>
       <nav id="public-navigation" className={`public-navigation ${open ? "is-open" : ""}`} aria-label={text.navigation}>
+        <div className="mobile-language-switcher"><LanguageSwitcher locale={locale} label={text.languages} /></div>
         <ul className="container nav-list">
           {primaryNavigation.map(([key, path]) => (
             <li key={key}>
