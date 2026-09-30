@@ -284,6 +284,32 @@ summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
   .nav-list a { padding-block: 12px; }
   .site-header.over-hero .public-navigation { position: static; }
   .site-header.over-hero .nav-list { width: min(var(--width), calc(100% - 36px)); margin-inline: auto; }
+  .menu-toggle {
+    position: fixed;
+    top: max(12px, env(safe-area-inset-top));
+    right: max(14px, env(safe-area-inset-right));
+    z-index: 50;
+    width: 42px;
+    min-width: 42px;
+    height: 42px;
+    padding: 0;
+    border: 1px solid rgb(247 241 232 / 55%);
+    border-radius: 2px;
+    background: rgb(33 29 26 / 78%);
+    color: var(--salonki-white);
+    font-size: 22px;
+    line-height: 1;
+  }
+  .public-navigation.is-open,
+  .site-header.over-hero .public-navigation.is-open {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    display: block;
+    min-height: 100svh;
+    padding-top: calc(64px + env(safe-area-inset-top));
+    background: var(--salonki-wine);
+  }
 }
 @media (max-width: 800px) {
   .destination-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
