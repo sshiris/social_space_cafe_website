@@ -30,3 +30,13 @@ export function upcomingEvents(events: readonly VenueEvent[], date: string, time
   return events.filter((event) => event.status === "published" && !event.cancelled && localDay(event.startsAt) >= date)
     .sort((a, b) => Date.parse(a.startsAt) - Date.parse(b.startsAt));
 }
+
+/** The public lunch range is Monday–Friday, independent of timezone or dish count. */
+export function formatMenuWeekRange(weekStart: string, locale: Locale) {
+  const monday = new Date(`${weekStart}T12:00:00Z`);
+  const friday = new Date(monday);
+  friday.setUTCDate(friday.getUTCDate() + 4);
+  return new Intl.DateTimeFormat(locale, {
+    day: "numeric", month: "long", year: "numeric", timeZone: "UTC",
+  }).formatRange(monday, friday);
+}

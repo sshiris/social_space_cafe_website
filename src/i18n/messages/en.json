@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Home",
-    "menu": "Food & Coffee",
+    "menu": "Menu",
     "bar": "Bar",
     "events": "Events",
     "souvenirs": "Souvenirs",
-    "meetingRoom": "Meeting Room",
+    "meetingRoom": "Gatherings",
     "contact": "Visit / Contact"
   },
   "navigation": "Main navigation",
@@ -24,7 +24,7 @@
     "demo": "Prototype · unconfirmed business information",
     "clock": "Demo day",
     "clockNote": "Hours, menu and upcoming events below use this fixed demo date, not the current date.",
-    "branding": "Name, visual identity, imagery, prices and schedules are illustrative.",
+    "branding": "Illustrative content, prices and schedules — subject to owner confirmation.",
     "explore": "Explore food & coffee",
     "visit": "Plan a visit",
     "hours": "Opening information",
@@ -50,5 +50,27 @@
     "roomHours": "Room-use hours, by arrangement",
     "sample": "Demo content",
     "back": "Back to top"
+  },
+  "menu": {
+    "title": "Weekly lunch menu",
+    "fullMenu": "View full weekly menu",
+    "back": "Back to Food & Coffee",
+    "weekRange": "Monday–Friday",
+    "preview": "Lunch preview",
+    "emptyTitle": "The menu for this week is not available yet.",
+    "emptyDescription": "Please check back soon, or see the café information on our homepage.",
+    "demoNote": "This sample menu uses the fixed demo date below, not the current date. Dishes, prices and dietary information are not confirmed business information."
+  },
+  "story": {
+    "events": "What’s happening",
+    "eat": "Eat & drink",
+    "atmosphere": "More than a café",
+    "gather": "Space to gather",
+    "viewMenu": "View menu",
+    "programme": "Explore the programme",
+    "eventEnquiry": "Ask about an event",
+    "photo": "Photography to come",
+    "intro": "The idea of Salonki",
+    "visit": "Visit Salonki"
   }
 }

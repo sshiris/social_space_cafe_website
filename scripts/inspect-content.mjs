@@ -1,9 +1,9 @@
 import assert from "node:assert/strict";
 import * as content from "../src/content/demo/index.ts";
-import { hoursOnDate, publishedMenuForDate, upcomingEvents } from "../src/content/presentation.ts";
+import { formatMenuWeekRange, hoursOnDate, publishedMenuForDate, upcomingEvents } from "../src/content/presentation.ts";
 import { locales } from "../src/i18n/locales.ts";
 
-const { weeklyMenus, openingHours, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks } = content;
+const { weeklyMenus, openingHours, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks, venueStory, storyImages } = content;
 const args = process.argv.slice(2);
 const checkOnly = args.includes("--check");
 const locale = args.find((arg) => !arg.startsWith("--")) ?? "en";
@@ -112,6 +112,13 @@ assert.equal(publishedMenuForDate([{ ...weeklyMenus[0], status: "draft" }], "202
 assert.equal(upcomingEvents(events, content.demoContext.referenceDate, content.demoContext.timeZone).length, 2);
 assert.equal(upcomingEvents(events, "2026-10-05", content.demoContext.timeZone).length, 0);
 assert.equal(upcomingEvents([{ ...events[0], cancelled: true }], "2026-09-14", content.demoContext.timeZone).length, 0);
+assert.equal(publishedMenuForDate([], content.demoContext.referenceDate), undefined);
+for (const language of locales) {
+  const range = formatMenuWeekRange("2026-09-14", language);
+  assert(range.includes("14") && range.includes("18") && range.includes("2026"));
+  const yearBoundary = formatMenuWeekRange("2026-12-28", language);
+  assert(yearBoundary.includes("2026") && yearBoundary.includes("2027"));
+}
 uniqueIds(coffeeDrinks, "coffee drinks");
 
 console.log("Content checks passed: three languages, prices, dates, hours, menu structure and event references.");
@@ -125,5 +132,5 @@ if (!checkOnly) {
     if (locales.every((language) => Object.hasOwn(value, language))) return localized(value[locale]);
     return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, localized(child)]));
   };
-  console.log(JSON.stringify(localized({ openingHours, weeklyMenus, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks }), null, 2));
+  console.log(JSON.stringify(localized({ openingHours, weeklyMenus, bar, events, souvenirs, meetingRoom, venueText, coffeeDrinks, venueStory, storyImages }), null, 2));
 }

@@ -25,7 +25,7 @@ export default async function PublicLayout({ children, params }: LayoutProps<"/[
         <a className="skip-link" href="#main-content">{text.skip}</a>
         <Header key={locale} locale={locale} text={text} venueName={demoContext.venueName} />
         <main id="main-content" tabIndex={-1}>{children}</main>
-        <Footer text={text} venueName={demoContext.venueName} />
+        <Footer locale={locale} text={text} venueName={demoContext.venueName} />
       </body>
     </html>
   );

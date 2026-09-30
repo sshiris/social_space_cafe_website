@@ -41,11 +41,11 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
       </div>
       <nav id="public-navigation" className={`public-navigation ${open ? "is-open" : ""}`} aria-label={text.navigation}>
         <ul className="container nav-list">
-          {publicRoutes.map((route) => (
+          {publicRoutes.filter((route) => route.placement === "primary").map((route) => (
             <li key={route.key}>
               <a href={`/${locale}${route.path}`} onClick={(event) => {
                 if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
-                const target = document.getElementById(route.path.slice(1));
+                const target = route.kind === "section" ? document.getElementById(route.path.slice(1)) : null;
                 if (target) {
                   event.preventDefault();
                   // Collapse the mobile menu before calculating the target's scroll position.

@@ -1,14 +1,14 @@
 import { isLocale, type Locale } from "./locales.ts";
 
-/** Stable section IDs are shared by all locales and preserved by the language switcher. */
+/** Published pages use routes; unbuilt detail pages retain usable homepage sections. */
 export const publicRoutes = [
-  { key: "home", path: "#home" },
-  { key: "menu", path: "#food-coffee" },
-  { key: "bar", path: "#bar" },
-  { key: "events", path: "#events" },
-  { key: "souvenirs", path: "#souvenirs" },
-  { key: "meetingRoom", path: "#meeting-room" },
-  { key: "contact", path: "#contact" },
+  { key: "home", kind: "page", placement: "primary", path: "" },
+  { key: "menu", kind: "page", placement: "primary", path: "/menu" },
+  { key: "events", kind: "section", placement: "primary", path: "#events" },
+  { key: "meetingRoom", kind: "section", placement: "primary", path: "#meeting-room" },
+  { key: "contact", kind: "section", placement: "primary", path: "#contact" },
+  { key: "bar", kind: "section", placement: "secondary", path: "#bar" },
+  { key: "souvenirs", kind: "section", placement: "secondary", path: "#souvenirs" },
 ] as const;
 
 /** Replace only the locale segment, retaining nested paths, search and hash. */

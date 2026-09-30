@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Etusivu",
-    "menu": "Ruoka & Kahvi",
+    "menu": "Ruokalista",
     "bar": "Baari",
     "events": "Tapahtumat",
     "souvenirs": "Matkamuistot",
-    "meetingRoom": "Kokoustila",
+    "meetingRoom": "Tapaamiset",
     "contact": "Vierailu / Yhteystiedot"
   },
   "navigation": "Päänavigaatio",
@@ -24,7 +24,7 @@
     "demo": "Prototyyppi · yritystiedot vahvistamatta",
     "clock": "Esimerkkipäivä",
     "clockNote": "Alla olevat aukioloajat, ruokalista ja tulevat tapahtumat perustuvat tähän esimerkkipäivään, eivät nykyiseen päivään.",
-    "branding": "Nimi, visuaalinen ilme, kuvat, hinnat ja aikataulut ovat esimerkkejä.",
+    "branding": "Esimerkkisisältö, hinnat ja aikataulut — omistajan vahvistus tarvitaan.",
     "explore": "Tutustu ruokaan ja kahviin",
     "visit": "Suunnittele vierailu",
     "hours": "Aukioloajat",
@@ -50,5 +50,27 @@
     "roomHours": "Tilan käyttöajat sopimuksen mukaan",
     "sample": "Esimerkkisisältö",
     "back": "Takaisin alkuun"
+  },
+  "menu": {
+    "title": "Viikon lounaslista",
+    "fullMenu": "Katso koko viikon lounaslista",
+    "back": "Takaisin ruokaan ja kahviin",
+    "weekRange": "Maanantai–perjantai",
+    "preview": "Lounaan esittely",
+    "emptyTitle": "Tämän viikon ruokalistaa ei ole vielä saatavilla.",
+    "emptyDescription": "Tarkista tilanne myöhemmin tai tutustu kahvilan tietoihin etusivulla.",
+    "demoNote": "Tämä esimerkkiruokalista perustuu alla näkyvään kiinteään esimerkkipäivään, ei nykyiseen päivään. Annokset, hinnat ja ruokavaliotiedot eivät ole vahvistettuja yritystietoja."
+  },
+  "story": {
+    "events": "Mitä tapahtuu",
+    "eat": "Ruokaa ja juomaa",
+    "atmosphere": "Enemmän kuin kahvila",
+    "gather": "Tilaa yhdessäololle",
+    "viewMenu": "Katso ruokalista",
+    "programme": "Tutustu ohjelmaan",
+    "eventEnquiry": "Kysy tapahtumasta",
+    "photo": "Valokuva tulossa",
+    "intro": "Salongin idea",
+    "visit": "Tule Salonkiin"
   }
 }

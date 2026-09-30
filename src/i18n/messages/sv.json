@@ -1,11 +1,11 @@
 {
   "nav": {
     "home": "Hem",
-    "menu": "Mat & Kaffe",
+    "menu": "Meny",
     "bar": "Bar",
     "events": "Evenemang",
     "souvenirs": "Souvenirer",
-    "meetingRoom": "Mötesrum",
+    "meetingRoom": "Träffas",
     "contact": "Besök / Kontakt"
   },
   "navigation": "Huvudnavigation",
@@ -24,7 +24,7 @@
     "demo": "Prototyp · obekräftade företagsuppgifter",
     "clock": "Exempeldag",
     "clockNote": "Öppettiderna, menyn och kommande evenemang nedan utgår från detta fasta exempeldatum, inte dagens datum.",
-    "branding": "Namn, visuell identitet, bilder, priser och tider är exempel.",
+    "branding": "Exempelinnehåll, priser och tider — inväntar ägarens bekräftelse.",
     "explore": "Upptäck mat och kaffe",
     "visit": "Planera ett besök",
     "hours": "Öppettider",
@@ -50,5 +50,27 @@
     "roomHours": "Användningstider enligt överenskommelse",
     "sample": "Exempelinnehåll",
     "back": "Till toppen"
+  },
+  "menu": {
+    "title": "Veckans lunchmeny",
+    "fullMenu": "Se hela veckans lunchmeny",
+    "back": "Tillbaka till Mat & Kaffe",
+    "weekRange": "Måndag–fredag",
+    "preview": "Ett smakprov på lunchen",
+    "emptyTitle": "Menyn för den här veckan är inte tillgänglig ännu.",
+    "emptyDescription": "Titta gärna in igen snart eller läs om kaféet på vår startsida.",
+    "demoNote": "Denna exempelmeny utgår från det fasta exempeldatumet nedan, inte dagens datum. Rätter, priser och kostinformation är inte bekräftade företagsuppgifter."
+  },
+  "story": {
+    "events": "På gång",
+    "eat": "Mat och dryck",
+    "atmosphere": "Mer än ett kafé",
+    "gather": "Rum för gemenskap",
+    "viewMenu": "Se menyn",
+    "programme": "Utforska programmet",
+    "eventEnquiry": "Fråga om ett evenemang",
+    "photo": "Fotografi kommer senare",
+    "intro": "Idén med Salonki",
+    "visit": "Besök Salonki"
   }
 }

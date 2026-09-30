@@ -8,6 +8,13 @@ assert.equal(switchLocalePath('/fi/events/salsa-social-september?view=list#detai
 assert.equal(switchLocalePath('/sv/meeting-room', 'en'), '/en/meeting-room');
 assert.equal(switchLocalePath('/unsupported', 'fi'), '/fi');
 assert.equal(publicRoutes.length, 7);
-assert.deepEqual(publicRoutes.map(route => route.path), ['#home', '#food-coffee', '#bar', '#events', '#souvenirs', '#meeting-room', '#contact']);
+assert.deepEqual(publicRoutes.filter(route => route.placement === 'primary').map(route => route.key), ['home', 'menu', 'events', 'meetingRoom', 'contact']);
+assert.deepEqual(publicRoutes.filter(route => route.placement === 'secondary').map(route => route.key), ['bar', 'souvenirs']);
+assert.deepEqual(publicRoutes.filter(route => route.kind === 'page').map(route => route.key), ['home', 'menu']);
+assert(publicRoutes.filter(route => route.kind === 'section').every(route => route.path.startsWith('#')));
+assert.deepEqual(publicRoutes.map(route => route.path), ['', '/menu', '#events', '#meeting-room', '#contact', '#bar', '#souvenirs']);
 assert.equal(switchLocalePath('/en?preview=1#meeting-room', 'sv'), '/sv?preview=1#meeting-room');
+assert.equal(switchLocalePath('/en/menu', 'fi'), '/fi/menu');
+assert.equal(switchLocalePath('/fi/menu', 'sv'), '/sv/menu');
+assert.equal(switchLocalePath('/sv/menu?preview=1#day-2026-09-18', 'en'), '/en/menu?preview=1#day-2026-09-18');
 console.log('Routing checks passed: locale validation, nested paths, query/hash preservation and milestone navigation scope.');
