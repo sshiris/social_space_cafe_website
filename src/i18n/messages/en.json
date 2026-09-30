@@ -22,6 +22,7 @@
   "tagline": "A little space for good company.",
   "eyebrow": "Café · Bar · Social space",
   "preview": "Website preview",
+  "social": { "label": "Social links", "instagram": "Instagram", "facebook": "Facebook" },
   "footer": "Coffee, conversation and moments worth sharing.",
   "home": {
     "food": "Food & Coffee",

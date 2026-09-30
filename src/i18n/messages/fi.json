@@ -22,6 +22,7 @@
   "tagline": "Tilaa hyvälle seuralle.",
   "eyebrow": "Kahvila · Baari · Kohtaamispaikka",
   "preview": "Verkkosivun esikatselu",
+  "social": { "label": "Sosiaalisen median linkit", "instagram": "Instagram", "facebook": "Facebook" },
   "footer": "Kahvia, keskusteluja ja yhteisiä hetkiä.",
   "home": {
     "food": "Ruoka & Kahvi",

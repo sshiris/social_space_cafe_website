@@ -6,11 +6,9 @@ import { switchLocalePath } from "@/i18n/routing";
 
 const languageNames = { en: "English", fi: "Suomi", sv: "Svenska" };
 
-export function LanguageSwitcher({ locale, label }: { locale: Locale; label: string }) {
+export function LanguageSwitcher({ locale, label, compact = false }: { locale: Locale; label: string; compact?: boolean }) {
   const pathname = usePathname();
-  return (
-    <nav className="language-switcher" aria-label={label}>
-      {locales.map((language) => (
+  const links = locales.map((language) => (
         <a key={language} href={switchLocalePath(pathname, language)}
           lang={language} hrefLang={language} aria-label={languageNames[language]}
           aria-current={language === locale ? "page" : undefined}
@@ -21,7 +19,7 @@ export function LanguageSwitcher({ locale, label }: { locale: Locale; label: str
           }}>
           {language.toUpperCase()}
         </a>
-      ))}
-    </nav>
-  );
+      ));
+  if (compact) return <details className="language-dropdown"><summary aria-label={label}>{languageNames[locale].toUpperCase()} <span aria-hidden="true">⌄</span></summary><nav className="language-dropdown-options" aria-label={label}>{links}</nav></details>;
+  return <nav className="language-switcher" aria-label={label}>{links}</nav>;
 }

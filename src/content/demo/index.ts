@@ -7,3 +7,4 @@ export { souvenirs } from "./souvenirs.ts";
 export { meetingRoom } from "./meeting-room.ts";
 export { venueText, coffeeDrinks } from "./venue.ts";
 export { venueStory, storyImages } from "./story.ts";
+export { socialLinks } from "./social.ts";

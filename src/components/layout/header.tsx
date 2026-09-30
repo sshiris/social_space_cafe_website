@@ -6,6 +6,7 @@ import { useRef, useState } from "react";
 import type { Locale } from "@/i18n/locales";
 import type { Messages } from "@/i18n/messages";
 import { LanguageSwitcher } from "./language-switcher";
+import { SocialLinks } from "./social-links";
 import Image from "next/image";
 
 // Keep the client-rendered shell independent from the mutable route registry so its
@@ -28,7 +29,28 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
     <header className={`site-header ${isHome ? "over-hero" : ""}`} onKeyDown={(event) => {
       if (event.key === "Escape" && open) { setOpen(false); button.current?.focus(); }
     }}>
-      <div className="container header-top">
+      <div className="header-top">
+        <nav id="public-navigation" className={`public-navigation ${open ? "is-open" : ""}`} aria-label={text.navigation}>
+          <div className="mobile-utilities"><LanguageSwitcher locale={locale} label={text.languages} /><SocialLinks text={text} /></div>
+          <ul className="nav-list">
+            {primaryNavigation.map(([key, path]) => (
+              <li key={key}>
+                <a href={`/${locale}${path}`} onClick={() => setOpen(false)}>{text.nav[key]}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+        <div className="mobile-hero-utilities">
+          <div className="mobile-social-group"><SocialLinks text={text} iconOnly /></div>
+          <div className="mobile-actions-group">
+            <a className="mobile-events-cta" href={`/${locale}/calendar#month-programme`}>{text.nav.events}</a>
+            <button ref={button} type="button" className="menu-toggle" aria-expanded={open}
+              aria-controls="public-navigation" aria-label={open ? text.closeMenu : text.openMenu}
+              onClick={() => setOpen(!open)}>
+              <span aria-hidden="true">{open ? "×" : "☰"}</span>
+            </button>
+          </div>
+        </div>
         <Link
           className="brand"
           href={`/${locale}`}
@@ -43,23 +65,8 @@ export function Header({ locale, text, venueName }: { locale: Locale; text: Mess
             sizes="(max-width: 600px) 100px, 160px"
           />
         </Link>
-        <div className="desktop-language-switcher"><LanguageSwitcher locale={locale} label={text.languages} /></div>
-        <button ref={button} type="button" className="menu-toggle" aria-expanded={open}
-          aria-controls="public-navigation" aria-label={open ? text.closeMenu : text.openMenu}
-          onClick={() => setOpen(!open)}>
-          <span aria-hidden="true">{open ? "×" : "☰"}</span>
-        </button>
+        <div className="desktop-utilities"><LanguageSwitcher locale={locale} label={text.languages} compact /><SocialLinks text={text} /></div>
       </div>
-      <nav id="public-navigation" className={`public-navigation ${open ? "is-open" : ""}`} aria-label={text.navigation}>
-        <div className="mobile-language-switcher"><LanguageSwitcher locale={locale} label={text.languages} /></div>
-        <ul className="container nav-list">
-          {primaryNavigation.map(([key, path]) => (
-            <li key={key}>
-              <a href={`/${locale}${path}`} onClick={() => setOpen(false)}>{text.nav[key]}</a>
-            </li>
-          ))}
-        </ul>
-      </nav>
     </header>
   );
 }
