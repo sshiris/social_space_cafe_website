@@ -97,5 +97,30 @@
     "bookingNote": "Room information only. Live booking is not available.",
     "marketNote": "A small selection to discover in person. Online shopping is not available.",
     "explore": "Explore Salonki"
+  },
+  "booking": {
+    "intro": "Choose one or more 1-hour slots, including separate times. All times are local to Vaasa (09:00–16:00).",
+    "date": "Choose a date",
+    "times": "Choose your times",
+    "available": "Available",
+    "selected": "Selected",
+    "unavailable": "Unavailable",
+    "loading": "Loading availability…",
+    "availabilityError": "Availability could not be loaded. Please try again.",
+    "retry": "Try again",
+    "details": "Your details",
+    "name": "Name",
+    "email": "Email",
+    "people": "Number of people",
+    "phone": "Phone",
+    "notes": "Notes",
+    "submit": "Confirm booking",
+    "submitting": "Booking…",
+    "success": "Your booking is confirmed.",
+    "conflict": "One or more selected slots have just been booked. Availability has been refreshed; please review your selection.",
+    "submitError": "Your booking could not be completed. Please try again.",
+    "networkError": "The connection was interrupted. Check availability before trying again; your booking may have been saved.",
+    "required": "Required fields are marked *.",
+    "full": "No slots are available on this date. Please choose another date."
   }
 }

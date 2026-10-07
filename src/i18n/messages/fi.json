@@ -97,5 +97,30 @@
     "bookingNote": "Vain tilan esittely. Reaaliaikainen varaus ei ole käytössä.",
     "marketNote": "Pieni valikoima paikan päällä tutustuttavaksi. Verkko-ostaminen ei ole käytössä.",
     "explore": "Tutustu Salonkiin"
+  },
+  "booking": {
+    "intro": "Valitse yksi tai useampi tunnin aika. Aikojen ei tarvitse olla peräkkäisiä. Kaikki ajat ovat Vaasan paikallista aikaa (09.00–16.00).",
+    "date": "Valitse päivämäärä",
+    "times": "Valitse ajat",
+    "available": "Vapaa",
+    "selected": "Valittu",
+    "unavailable": "Varattu",
+    "loading": "Ladataan vapaita aikoja…",
+    "availabilityError": "Vapaita aikoja ei voitu ladata. Yritä uudelleen.",
+    "retry": "Yritä uudelleen",
+    "details": "Yhteystietosi",
+    "name": "Nimi",
+    "email": "Sähköposti",
+    "people": "Henkilömäärä",
+    "phone": "Puhelin",
+    "notes": "Lisätiedot",
+    "submit": "Vahvista varaus",
+    "submitting": "Varataan…",
+    "success": "Varauksesi on vahvistettu.",
+    "conflict": "Yksi tai useampi valitsemasi aika on juuri varattu. Varaustilanne on päivitetty. Tarkista valintasi.",
+    "submitError": "Varausta ei voitu tehdä. Yritä uudelleen.",
+    "networkError": "Yhteys katkesi. Tarkista varaustilanne ennen uutta yritystä; varauksesi on saattanut tallentua.",
+    "required": "Pakolliset kentät on merkitty tähdellä *.",
+    "full": "Tälle päivälle ei ole vapaita aikoja. Valitse toinen päivä."
   }
 }

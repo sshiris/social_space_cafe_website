@@ -97,5 +97,30 @@
     "bookingNote": "Endast information om rummet. Direktbokning är inte tillgänglig.",
     "marketNote": "Ett litet urval att upptäcka på plats. Näthandel är inte tillgänglig.",
     "explore": "Upptäck Salonki"
+  },
+  "booking": {
+    "intro": "Välj en eller flera tider på en timme. Tiderna behöver inte följa på varandra. Alla tider är lokal tid i Vasa (09:00–16:00).",
+    "date": "Välj datum",
+    "times": "Välj tider",
+    "available": "Ledig",
+    "selected": "Vald",
+    "unavailable": "Bokad",
+    "loading": "Laddar lediga tider…",
+    "availabilityError": "Lediga tider kunde inte laddas. Försök igen.",
+    "retry": "Försök igen",
+    "details": "Dina uppgifter",
+    "name": "Namn",
+    "email": "E-post",
+    "people": "Antal personer",
+    "phone": "Telefon",
+    "notes": "Meddelande",
+    "submit": "Bekräfta bokning",
+    "submitting": "Bokar…",
+    "success": "Din bokning är bekräftad.",
+    "conflict": "En eller flera valda tider har just bokats. Tillgängligheten har uppdaterats. Kontrollera ditt val.",
+    "submitError": "Bokningen kunde inte genomföras. Försök igen.",
+    "networkError": "Anslutningen avbröts. Kontrollera tillgängligheten innan du försöker igen; din bokning kan ha sparats.",
+    "required": "Obligatoriska fält är markerade med *.",
+    "full": "Inga tider är lediga detta datum. Välj ett annat datum."
   }
 }

@@ -23,7 +23,7 @@ export default async function BookingPage({
   return (
     <div className="booking-page container">
       <h1>{messages[locale].nav.booking}</h1>
-      <BookingSlotSelector />
+      <BookingSlotSelector text={messages[locale].booking} />
     </div>
   );
 }

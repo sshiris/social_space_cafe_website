@@ -506,3 +506,27 @@ body { background: var(--salonki-ivory); color: var(--salonki-ink); }
   .mobile-events-cta:focus-visible,
   .mobile-events-cta:hover { background: var(--salonki-terracotta); }
 }
+
+/* Meeting-room booking uses the shared site colors and typography. */
+.booking-page { padding-block: 48px 80px; }
+.booking-form { max-width: 720px; display: grid; gap: 24px; }
+.booking-form > p { margin: 0; }
+.booking-form fieldset { margin: 0; padding: 0; border: 0; min-width: 0; }
+.booking-form legend { margin-bottom: 12px; font-family: var(--font-display); font-size: 26px; }
+.booking-field { display: grid; gap: 6px; font-size: 14px; }
+.booking-field input, .booking-field textarea { width: 100%; min-width: 0; padding: 12px; border: 1px solid var(--muted); border-radius: 3px; background: var(--salonki-white); color: var(--ink); font: inherit; font-size: 16px; }
+.booking-field textarea { resize: vertical; }
+.booking-field input:focus-visible, .booking-field textarea:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.booking-form > .booking-field { max-width: 300px; }
+.booking-slots, .booking-fields { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.booking-fields { margin-bottom: 16px; }
+.booking-slot { display: grid; gap: 4px; padding: 12px; border: 1px solid var(--muted); border-radius: 3px; background: var(--salonki-white); cursor: pointer; }
+.booking-slot small { font-size: 12px; }
+.booking-slot[data-state="selected"] { background: var(--salonki-wine); color: var(--salonki-white); }
+.booking-slot[data-state="unavailable"] { background: var(--soft); border-style: dashed; }
+.booking-slot[data-state="unavailable"] > span { text-decoration: line-through; }
+.booking-form button:disabled { cursor: not-allowed; opacity: .65; }
+.booking-form > .button { justify-self: start; border: 0; cursor: pointer; }
+.booking-notice { padding: 20px; background: var(--soft); border-left: 3px solid var(--salonki-wine); }
+.booking-notice p { margin-bottom: 0; }
+@media (max-width: 600px) { .booking-fields { grid-template-columns: 1fr; } }
