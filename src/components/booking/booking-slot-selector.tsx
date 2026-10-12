@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, type FormEvent } from "react";
+import type { PackageSelection } from "@/components/booking/snack-package-selector";
+import { SnackPackageSelector } from "@/components/booking/snack-package-selector";
 import { getAvailableSlots } from "@/lib/booking-slots";
 import { isBookingDate, isBookingEmail } from "@/lib/booking-validation";
 import type { Messages } from "@/i18n/messages";
@@ -19,6 +21,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
   const [confirmation, setConfirmation] = useState<{ date: string; slots: string[] } | null>(null);
   const requestId = useRef(0);
   const submittingRef = useRef(false);
+  const [selectedPackages, setSelectedPackages] = useState<PackageSelection[]>([]);
 
   useEffect(() => () => { requestId.current += 1; }, []);
 
@@ -130,6 +133,10 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
         <label className="booking-field">{text.notes}<textarea name="notes" rows={4} maxLength={5000} value={customer.notes} onChange={(event) => setCustomer({ ...customer, notes: event.target.value })} /></label>
       </fieldset>
       {error && <p role="alert">{error}</p>}
+      <SnackPackageSelector
+        selectedPackages={selectedPackages}
+        onPackagesChange={setSelectedPackages}
+      />
       <button className="button" type="submit" disabled={!canSubmit}>{submitting ? text.submitting : text.submit}</button>
     </form>
   );
