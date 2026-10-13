@@ -1,5 +1,5 @@
 "use client";
-
+import { drinkPackages } from "@/lib/booking-extras";
 export type DrinkSelection = {
   drinkId: string;
   quantity: number;
@@ -9,13 +9,6 @@ type DrinkSelectorProps = {
   selectedDrinks: DrinkSelection[];
   onDrinksChange: (drinks: DrinkSelection[]) => void;
 };
-
-const drinkPackages = [
-  { drinkId: "white_wine", name: "white wine" },
-  { drinkId: "red_wine", name: "red wine" },
-  { drinkId: "beer", name: "beer" },
-  { drinkId: "cocktail", name: "cocktail" },
-];
 
 export function DrinkSelector({
   selectedDrinks,

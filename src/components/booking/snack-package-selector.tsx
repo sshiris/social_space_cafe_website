@@ -1,4 +1,5 @@
 "use client";
+import { snackPackages } from "@/lib/booking-extras";
 
 export type PackageSelection = {
   packageId: string;
@@ -8,12 +9,6 @@ type SnackPackageSelectorProps = {
   selectedPackages: PackageSelection[];
   onPackagesChange: (packages: PackageSelection[]) => void;
 };
-
-const snackPackages = [
-  { id: "savory", name: "Savory" },
-  { id: "sweet", name: "Sweet" },
-  { id: "combo", name: "Combo" },
-];
 
 export function SnackPackageSelector({
   selectedPackages,
