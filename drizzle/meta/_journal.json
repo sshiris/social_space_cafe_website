@@ -15,6 +15,13 @@
       "when": 1791204442588,
       "tag": "0001_good_titania",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1791895637239,
+      "tag": "0002_thick_zombie",
+      "breakpoints": true
     }
   ]
 }

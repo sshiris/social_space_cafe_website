@@ -1,6 +1,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "@/db";
-import { bookings, bookingSlots } from "@/db/schema";
+import { bookings, bookingSlots, bookingExtras } from "@/db/schema";
 import {
   isBookingConflict,
   isBookingDate,
@@ -66,6 +66,25 @@ export async function POST(request: Request) {
           ...slot,
         })),
       );
+      const extras = [
+        ...data.selectedPackages.map((pkg) => ({
+          bookingId: booking.id,
+          itemType: "food",
+          itemId: pkg.packageId,
+          quantity: pkg.quantity,
+        })),
+
+        ...data.selectedDrinks.map((drink) => ({
+          bookingId: booking.id,
+          itemType: "drink",
+          itemId: drink.drinkId,
+          quantity: drink.quantity,
+        })),
+      ];
+
+      if (extras.length > 0) {
+        await tx.insert(bookingExtras).values(extras);
+      }
     });
     return Response.json({ success: true }, { status: 201 });
   } catch (error) {
