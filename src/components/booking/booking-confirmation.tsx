@@ -18,9 +18,10 @@ export type BookingConfirmationData = {
 
 type Props = {
   confirmation: BookingConfirmationData;
+  onNewBooking: () => void;
 };
 
-export function BookingConfirmation({ confirmation }: Props) {
+export function BookingConfirmation({ confirmation, onNewBooking }: Props) {
   return (
     <section className="booking-confirmation">
       <h2>Booking Confirmed!</h2>
@@ -65,6 +66,9 @@ export function BookingConfirmation({ confirmation }: Props) {
       )}
 
       <p>Please save your reservation details.</p>
+      <button type="button" onClick={onNewBooking}>
+        Make another booking
+      </button>
     </section>
   );
 }

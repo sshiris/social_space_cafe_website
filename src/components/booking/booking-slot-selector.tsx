@@ -146,7 +146,11 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
   }
 
   return confirmation ? (
-    <BookingConfirmation confirmation={confirmation} />
+    <BookingConfirmation confirmation={confirmation} 
+    onNewBooking={() => {
+      setSelectedDate("");
+      setConfirmation(null);
+    }}/>
   ) : (
     <form className="booking-form" onSubmit={submit}>
       <p>{text.intro}</p>
