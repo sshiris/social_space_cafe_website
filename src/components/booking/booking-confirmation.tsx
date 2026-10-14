@@ -1,6 +1,7 @@
 import type { PackageSelection } from "@/components/booking/snack-package-selector";
 import type { DrinkSelection } from "@/components/booking/drink-selector";
 import { drinkPackages, snackPackages } from "@/lib/booking-extras";
+import Link from "next/link";
 
 export type BookingConfirmationData = {
   date: string;
@@ -67,6 +68,13 @@ export function BookingConfirmation({ confirmation, onNewBooking }: Props) {
       )}
 
       <p>Please save your reservation details.</p>
+      <Link
+        href={`/en/booking/cancel?token=${encodeURIComponent(
+          confirmation.cancellationToken,
+        )}`}
+      >
+        Cancel this booking
+      </Link>
       <button type="button" onClick={onNewBooking}>
         Make another booking
       </button>
