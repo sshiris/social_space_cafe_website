@@ -14,6 +14,7 @@ export type BookingConfirmationData = {
   };
   selectedPackages: PackageSelection[];
   selectedDrinks: DrinkSelection[];
+  cancellationToken: string;
 };
 
 type Props = {

@@ -21,6 +21,8 @@ export const bookings = pgTable("bookings", {
   notes: text("notes"),
   status: varchar("status", { length: 30 }).notNull().default("confirmed"),
   createdAt: timestamp("created_at").notNull().defaultNow(),
+  cancellationTokenHash: varchar("cancellation_token_hash", { length: 64 }).unique(),
+  cancelledAt: timestamp("cancelled_at", { withTimezone: true }),
 });
 
 export const bookingSlots = pgTable(
@@ -62,3 +64,4 @@ export const bookingExtras = pgTable("booking_extras", {
         sql`${table.quantity} BETWEEN 1 AND 100`,
     )
 ]);
+

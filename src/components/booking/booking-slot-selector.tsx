@@ -115,6 +115,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
       } else if (!response.ok) {
         setError(text.submitError);
       } else {
+        const result: {success: boolean; cancellationToken: string} = await response.json();
         setConfirmation({
           date: selectedDate,
           slots: slots
@@ -123,6 +124,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
           customer: { ...customer },
           selectedPackages: [...selectedPackages],
           selectedDrinks: [...selectedDrinks],
+          cancellationToken: result.cancellationToken,
         });
         setSelectedSlots([]);
         setCustomer({

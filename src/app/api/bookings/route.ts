@@ -6,6 +6,7 @@ import {
   isBookingDate,
   validateBooking,
 } from "@/lib/booking-validation";
+import { randomBytes, createHash } from "node:crypto";
 
 export async function GET(request: Request) {
   const date = new URL(request.url).searchParams.get("date");
@@ -53,11 +54,19 @@ export async function POST(request: Request) {
       { status: 400 },
     );
   }
+
+  const cancellationToken = randomBytes(32).toString("hex");
+  const cancellationTokenHash = createHash("sha256")
+    .update(cancellationToken)
+    .digest("hex");
   try {
     await db.transaction(async (tx) => {
       const [booking] = await tx
         .insert(bookings)
-        .values(data.customer)
+        .values({
+          ...data.customer,
+          cancellationTokenHash,
+        })
         .returning({ id: bookings.id });
       await tx.insert(bookingSlots).values(
         data.slots.map((slot) => ({
@@ -86,7 +95,7 @@ export async function POST(request: Request) {
         await tx.insert(bookingExtras).values(extras);
       }
     });
-    return Response.json({ success: true }, { status: 201 });
+    return Response.json({ success: true , cancellationToken }, { status: 201 });
   } catch (error) {
     if (isBookingConflict(error)) {
       return Response.json(
