@@ -3,10 +3,17 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import type { PackageSelection } from "@/components/booking/snack-package-selector";
 import { SnackPackageSelector } from "@/components/booking/snack-package-selector";
-import { DrinkSelector, type DrinkSelection } from "@/components/booking/drink-selector";
+import {
+  DrinkSelector,
+  type DrinkSelection,
+} from "@/components/booking/drink-selector";
 import { getAvailableSlots } from "@/lib/booking-slots";
 import { isBookingDate, isBookingEmail } from "@/lib/booking-validation";
 import type { Messages } from "@/i18n/messages";
+import {
+  BookingConfirmation,
+  type BookingConfirmationData,
+} from "@/components/booking/booking-confirmation";
 
 type Availability = { date: string; slots: { startTime: string }[] };
 
@@ -25,10 +32,8 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
   });
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const [confirmation, setConfirmation] = useState<{
-    date: string;
-    slots: string[];
-  } | null>(null);
+  const [confirmation, setConfirmation] =
+    useState<BookingConfirmationData | null>(null);
   const requestId = useRef(0);
   const submittingRef = useRef(false);
   const [selectedPackages, setSelectedPackages] = useState<PackageSelection[]>(
@@ -115,6 +120,9 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
           slots: slots
             .filter((slot) => selectedSlots.includes(slot.startTime))
             .map((slot) => `${slot.startTime}–${slot.endTime}`),
+          customer: { ...customer },
+          selectedPackages: [...selectedPackages],
+          selectedDrinks: [...selectedDrinks],
         });
         setSelectedSlots([]);
         setCustomer({
@@ -124,11 +132,12 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
           phone: "",
           notes: "",
         });
+        setSelectedPackages([]);
+        setSelectedDrinks([]);
         await loadAvailability(selectedDate);
       }
     } catch {
       setError(text.networkError);
-      setSelectedSlots([]);
       await loadAvailability(selectedDate);
     } finally {
       submittingRef.current = false;
@@ -136,19 +145,11 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
     }
   }
 
-  return (
+  return confirmation ? (
+    <BookingConfirmation confirmation={confirmation} />
+  ) : (
     <form className="booking-form" onSubmit={submit}>
       <p>{text.intro}</p>
-      {confirmation && (
-        <div className="booking-notice" role="status">
-          <strong>{text.success}</strong>
-          <p>
-            {confirmation.date}
-            <br />
-            {confirmation.slots.join(", ")}
-          </p>
-        </div>
-      )}
       <label className="booking-field">
         {text.date} *
         <input
