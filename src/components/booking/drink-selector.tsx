@@ -1,73 +1,39 @@
 "use client";
 import { drinkPackages } from "@/lib/booking-extras";
-export type DrinkSelection = {
-  drinkId: string;
-  quantity: number;
-};
+import { QuantitySelector } from "./quantity-selector";
+import type { Messages } from "@/i18n/messages";
 
-type DrinkSelectorProps = {
+export type DrinkSelection = { drinkId: string; quantity: number };
+type Props = {
   selectedDrinks: DrinkSelection[];
   onDrinksChange: (drinks: DrinkSelection[]) => void;
+  disabled?: boolean;
+  text: Messages["booking"]["extras"];
 };
-
 export function DrinkSelector({
   selectedDrinks,
   onDrinksChange,
-}: DrinkSelectorProps) {
-  function increaseQuantity(drinkId: string) {
-    const existingDrink = selectedDrinks.find(
-      (item) => item.drinkId === drinkId,
-    );
-    if (existingDrink) {
-      const updatedDrinks = selectedDrinks.map((item) =>
-        item.drinkId === drinkId
-          ? { ...item, quantity: item.quantity + 1 }
-          : item,
-      );
-
-      onDrinksChange(updatedDrinks);
-    } else {
-      onDrinksChange([...selectedDrinks, { drinkId, quantity: 1 }]);
-    }
-  }
-  function decreaseQuantity(drinkId: string) {
-    const updatedDrinks = selectedDrinks
-      .map((item) =>
-        item.drinkId === drinkId
-          ? { ...item, quantity: item.quantity - 1 }
-          : item,
-      )
-      .filter((item) => item.quantity > 0);
-    onDrinksChange(updatedDrinks);
-  }
+  disabled,
+  text,
+}: Props) {
   return (
-    <section>
-      <h2>Additional Drinks</h2>
-      <p>Select the drinks you would like to add to your booking:</p>
-      {drinkPackages.map((drink) => {
-        const quantity =
-          selectedDrinks.find((item) => item.drinkId === drink.drinkId)
-            ?.quantity ?? 0;
-        return (
-          <div key={drink.drinkId}>
-            <h3>{drink.name}</h3>
-            <button
-              type="button"
-              disabled={quantity === 0}
-              onClick={() => decreaseQuantity(drink.drinkId)}
-            >
-              -
-            </button>
-            <span>{quantity}</span>
-            <button
-              type="button"
-              onClick={() => increaseQuantity(drink.drinkId)}
-            >
-              +
-            </button>
-          </div>
-        );
-      })}
-    </section>
+    <QuantitySelector
+      title={text.drinks}
+      text={text}
+      disabled={disabled}
+      items={drinkPackages.map((item) => ({
+        id: item.drinkId,
+        name: text.items[item.drinkId],
+      }))}
+      selected={selectedDrinks.map((item) => ({
+        id: item.drinkId,
+        quantity: item.quantity,
+      }))}
+      onChange={(items) =>
+        onDrinksChange(
+          items.map((item) => ({ drinkId: item.id, quantity: item.quantity })),
+        )
+      }
+    />
   );
 }

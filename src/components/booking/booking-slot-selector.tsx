@@ -9,6 +9,8 @@ import {
 } from "@/components/booking/drink-selector";
 import { getAvailableSlots } from "@/lib/booking-slots";
 import { isBookingDate, isBookingEmail } from "@/lib/booking-validation";
+import type { Locale } from "@/i18n/locales";
+import { MAX_EXTRAS_PER_CATEGORY } from "@/lib/booking-extras";
 import type { Messages } from "@/i18n/messages";
 import {
   BookingConfirmation,
@@ -17,7 +19,7 @@ import {
 
 type Availability = { date: string; slots: { startTime: string }[] };
 
-export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
+export function BookingSlotSelector({ text, locale }: { text: Messages["booking"]; locale: Locale }) {
   const [selectedDate, setSelectedDate] = useState("");
   const [selectedSlots, setSelectedSlots] = useState<string[]>([]);
   const [availability, setAvailability] = useState<Availability | null>(null);
@@ -34,6 +36,8 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
   const [error, setError] = useState("");
   const [confirmation, setConfirmation] =
     useState<BookingConfirmationData | null>(null);
+  const dateInput = useRef<HTMLInputElement>(null);
+  const returnToForm = useRef(false);
   const requestId = useRef(0);
   const submittingRef = useRef(false);
   const [selectedPackages, setSelectedPackages] = useState<PackageSelection[]>(
@@ -47,6 +51,13 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
     },
     [],
   );
+
+  useEffect(() => {
+    if (!confirmation && returnToForm.current) {
+      dateInput.current?.focus();
+      returnToForm.current = false;
+    }
+  }, [confirmation]);
 
   async function loadAvailability(date: string) {
     const id = ++requestId.current;
@@ -87,6 +98,8 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
     Number.isInteger(people) &&
     people > 0 &&
     people <= 2147483647 &&
+    selectedPackages.reduce((sum, item) => sum + item.quantity, 0) <= MAX_EXTRAS_PER_CATEGORY &&
+    selectedDrinks.reduce((sum, item) => sum + item.quantity, 0) <= MAX_EXTRAS_PER_CATEGORY &&
     !submitting;
 
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -102,6 +115,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           date: selectedDate,
+          locale,
           selectedSlots,
           ...customer,
           numberOfPeople: people,
@@ -115,7 +129,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
       } else if (!response.ok) {
         setError(text.submitError);
       } else {
-        const result: {success: boolean; cancellationToken: string} = await response.json();
+        const result: {success: boolean; cancellationToken: string; emailQueued: boolean} = await response.json();
         setConfirmation({
           date: selectedDate,
           slots: slots
@@ -125,6 +139,7 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
           selectedPackages: [...selectedPackages],
           selectedDrinks: [...selectedDrinks],
           cancellationToken: result.cancellationToken,
+          emailQueued: result.emailQueued,
         });
         setSelectedSlots([]);
         setCustomer({
@@ -148,17 +163,20 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
   }
 
   return confirmation ? (
-    <BookingConfirmation confirmation={confirmation} 
+    <BookingConfirmation confirmation={confirmation} locale={locale} text={text}
     onNewBooking={() => {
+      returnToForm.current = true;
       setSelectedDate("");
+      setError("");
       setConfirmation(null);
     }}/>
   ) : (
     <form className="booking-form" onSubmit={submit}>
-      <p>{text.intro}</p>
+      <p className="booking-lead">{text.intro}</p>
       <label className="booking-field">
         {text.date} *
         <input
+          ref={dateInput}
           type="date"
           required
           value={selectedDate}
@@ -317,12 +335,16 @@ export function BookingSlotSelector({ text }: { text: Messages["booking"] }) {
           />
         </label>
       </fieldset>
-      {error && <p role="alert">{error}</p>}
+      {error && <p className="booking-notice" role="alert">{error}</p>}
       <SnackPackageSelector
+        text={text.extras}
+        disabled={submitting}
         selectedPackages={selectedPackages}
         onPackagesChange={setSelectedPackages}
       />
       <DrinkSelector
+        text={text.extras}
+        disabled={submitting}
         selectedDrinks={selectedDrinks}
         onDrinksChange={setSelectedDrinks}
       />

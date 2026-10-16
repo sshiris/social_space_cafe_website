@@ -1,6 +1,8 @@
 import {
   pgTable,
   serial,
+  uuid,
+  index,
   varchar,
   integer,
   text,
@@ -8,6 +10,7 @@ import {
   date,
   time,
   unique,
+  uniqueIndex,
   check,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
@@ -35,8 +38,12 @@ export const bookingSlots = pgTable(
     date: date("date").notNull(),
     startTime: time("start_time").notNull(),
     endTime: time("end_time").notNull(),
+    releasedAt: timestamp("released_at", { withTimezone: true }),
   },
-  (table) => [unique("booking_slot_unique").on(table.date, table.startTime)],
+  (table) => [
+    uniqueIndex("booking_slot_active_unique").on(table.date, table.startTime)
+      .where(sql`${table.releasedAt} IS NULL`),
+  ],
 );
 
 export const bookingExtras = pgTable("booking_extras", {
@@ -65,3 +72,18 @@ export const bookingExtras = pgTable("booking_extras", {
     )
 ]);
 
+
+// The encrypted payload includes a bearer cancellation link. Purge it after acceptance.
+export const bookingEmailOutbox = pgTable("booking_email_outbox", {
+  id: uuid("id").primaryKey().defaultRandom(),
+  bookingId: integer("booking_id").notNull().references(() => bookings.id).unique(),
+  encryptedPayload: text("encrypted_payload"),
+  state: varchar("state", { length: 20 }).notNull().default("pending"),
+  attempts: integer("attempts").notNull().default(0),
+  availableAt: timestamp("available_at", { withTimezone: true }).notNull().defaultNow(),
+  lockedUntil: timestamp("locked_until", { withTimezone: true }),
+  firstAttemptAt: timestamp("first_attempt_at", { withTimezone: true }),
+  sentAt: timestamp("sent_at", { withTimezone: true }),
+  providerMessageId: text("provider_message_id"),
+  errorCode: varchar("error_code", { length: 80 }),
+}, (table) => [index("booking_email_outbox_pending").on(table.state, table.availableAt)]);

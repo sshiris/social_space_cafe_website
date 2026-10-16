@@ -1,78 +1,108 @@
 "use client";
 
-import { useState } from "react";
-import { useSearchParams } from "next/navigation";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
+import Link from "next/link";
+import type { Locale } from "@/i18n/locales";
+import type { Messages } from "@/i18n/messages";
 
-type CancellationResult = {
-  success?: boolean;
-  error?: string;
-};
+function subscribe(listener: () => void) {
+  window.addEventListener("hashchange", listener);
+  window.addEventListener("popstate", listener);
+  return () => {
+    window.removeEventListener("hashchange", listener);
+    window.removeEventListener("popstate", listener);
+  };
+}
+function readToken() {
+  // Query tokens remain supported for previously issued links.
+  return (
+    new URLSearchParams(window.location.hash.slice(1)).get("token") ??
+    new URLSearchParams(window.location.search).get("token")
+  );
+}
 
-export function CancelBooking() {
-  const searchParams = useSearchParams();
-  const token = searchParams.get("token");
+type Props = { locale: Locale; text: Messages["booking"]["cancellation"] };
+export function CancelBooking({ locale, text }: Props) {
+  const token = useSyncExternalStore(subscribe, readToken, () => undefined);
+  if (token === undefined) return <p role="status">{text.loading}</p>;
+  if (!token || !/^[a-f0-9]{64}$/.test(token))
+    return (
+      <div className="booking-notice" role="alert">
+        <p>{text.errors.invalidToken}</p>
+        <Link href={`/${locale}/booking`}>{text.back}</Link>
+      </div>
+    );
+  return (
+    <CancellationForm key={token} token={token} locale={locale} text={text} />
+  );
+}
 
+function CancellationForm({ token, locale, text }: Props & { token: string }) {
   const [submitting, setSubmitting] = useState(false);
-  const [result, setResult] = useState<CancellationResult | null>(null);
-
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+  const inFlight = useRef(false);
+  const heading = useRef<HTMLHeadingElement>(null);
+  useEffect(() => {
+    if (success) heading.current?.focus();
+  }, [success]);
   async function cancelBooking() {
-    if (!token || submitting) return;
-
+    if (inFlight.current) return;
+    inFlight.current = true;
     setSubmitting(true);
-    setResult(null);
-
+    setError("");
     try {
       const response = await fetch("/api/bookings/cancel", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ token }),
       });
-
-      const data: CancellationResult = await response.json();
-
-      if (!response.ok) {
-        setResult({
-          error: data.error ?? "Unable to cancel booking.",
-        });
-        return;
-      }
-
-      setResult({ success: true });
+      const data: { success?: boolean; code?: string } = await response.json();
+      if (response.ok && data.success) setSuccess(true);
+      else
+        setError(
+          data.code && Object.hasOwn(text.errors, data.code)
+            ? text.errors[data.code as keyof typeof text.errors]
+            : text.errors.unavailable,
+        );
     } catch {
-      setResult({
-        error: "A network error occurred. Please try again.",
-      });
+      setError(text.errors.network);
     } finally {
+      inFlight.current = false;
       setSubmitting(false);
     }
   }
-
-  if (!token) {
-    return <p>Invalid cancellation link.</p>;
-  }
-
-  if (result?.success) {
-    return (
-      <section role="status">
-        <h2>Booking cancelled</h2>
-        <p>Your reservation has been cancelled successfully.</p>
-      </section>
-    );
-  }
-
   return (
-    <section>
-      <p>Are you sure you want to cancel your meeting room booking?</p>
-
-      <p>Cancellation is allowed until 2 hours before your booking starts.</p>
-
-      {result?.error && <p role="alert">{result.error}</p>}
-
-      <button type="button" disabled={submitting} onClick={cancelBooking}>
-        {submitting ? "Cancelling..." : "Confirm cancellation"}
-      </button>
+    <section className="booking-cancel-card">
+      {success ? (
+        <div className="booking-notice">
+          <h2 ref={heading} tabIndex={-1}>
+            {text.successTitle}
+          </h2>
+          <p role="status">{text.success}</p>
+        </div>
+      ) : (
+        <>
+          <p className="booking-lead">{text.intro}</p>
+          <p>{text.policy}</p>
+          {error && (
+            <p className="booking-notice" role="alert">
+              {error}
+            </p>
+          )}
+          <button
+            className="button"
+            type="button"
+            disabled={submitting}
+            onClick={cancelBooking}
+          >
+            {submitting ? text.submitting : text.confirm}
+          </button>
+        </>
+      )}
+      <Link className="text-link" href={`/${locale}/booking`}>
+        {text.back}
+      </Link>
     </section>
   );
 }

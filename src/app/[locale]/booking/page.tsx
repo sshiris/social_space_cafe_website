@@ -22,8 +22,9 @@ export default async function BookingPage({
   if (!isLocale(locale)) notFound();
   return (
     <div className="booking-page container">
+      <p className="eyebrow">{messages[locale].booking.eyebrow}</p>
       <h1>{messages[locale].nav.booking}</h1>
-      <BookingSlotSelector text={messages[locale].booking} />
+      <BookingSlotSelector locale={locale} text={messages[locale].booking} />
     </div>
   );
 }
