@@ -1,11 +1,12 @@
-import { eq } from "drizzle-orm";
+import { and, eq, isNull } from "drizzle-orm";
 import { db } from "@/db";
-import { bookings, bookingSlots, bookingExtras } from "@/db/schema";
+import { bookings, bookingSlots, bookingExtras, bookingEmailOutbox } from "@/db/schema";
 import {
   isBookingConflict,
   isBookingDate,
   validateBooking,
 } from "@/lib/booking-validation";
+import { prepareConfirmation } from "@/lib/email/confirmation";
 import { randomBytes, createHash } from "node:crypto";
 
 export async function GET(request: Request) {
@@ -23,7 +24,7 @@ export async function GET(request: Request) {
         endTime: bookingSlots.endTime,
       })
       .from(bookingSlots)
-      .where(eq(bookingSlots.date, date))
+      .where(and(eq(bookingSlots.date, date), isNull(bookingSlots.releasedAt)))
       .orderBy(bookingSlots.startTime);
     return Response.json(
       { slots },
@@ -60,6 +61,7 @@ export async function POST(request: Request) {
     .update(cancellationToken)
     .digest("hex");
   try {
+    const emailPayload = prepareConfirmation(data, cancellationToken);
     await db.transaction(async (tx) => {
       const [booking] = await tx
         .insert(bookings)
@@ -91,11 +93,14 @@ export async function POST(request: Request) {
         })),
       ];
 
+      if (emailPayload) {
+        await tx.insert(bookingEmailOutbox).values({ bookingId: booking.id, encryptedPayload: emailPayload });
+      }
       if (extras.length > 0) {
         await tx.insert(bookingExtras).values(extras);
       }
     });
-    return Response.json({ success: true , cancellationToken }, { status: 201 });
+    return Response.json({ success: true, cancellationToken, emailQueued: Boolean(emailPayload) }, { status: 201, headers: { "Cache-Control": "no-store" } });
   } catch (error) {
     if (isBookingConflict(error)) {
       return Response.json(
