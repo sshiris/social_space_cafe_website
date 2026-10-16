@@ -117,10 +117,74 @@
     "submit": "Confirm booking",
     "submitting": "Booking…",
     "success": "Your booking is confirmed.",
-    "conflict": "One or more selected slots have just been booked. Availability has been refreshed; please review your selection.",
+    "conflict": "One or more selected slots have just been booked. Please review your selection after availability reloads.",
     "submitError": "Your booking could not be completed. Please try again.",
     "networkError": "The connection was interrupted. Check availability before trying again; your booking may have been saved.",
     "required": "Required fields are marked *.",
-    "full": "No slots are available on this date. Please choose another date."
+    "full": "No slots are available on this date. Please choose another date.",
+    "eyebrow": "Meet at Salonki",
+    "extras": {
+      "food": "Food for your meeting",
+      "drinks": "Additional drinks",
+      "optional": "Optional · choose up to 100 per category.",
+      "increase": "Add one",
+      "decrease": "Remove one",
+      "quantity": "Quantity",
+      "total": "Selected",
+      "items": {
+        "savory": "Savory",
+        "sweet": "Sweet",
+        "combo": "Combo",
+        "white_wine": "White wine",
+        "red_wine": "Red wine",
+        "beer": "Beer",
+        "cocktail": "Cocktail"
+      }
+    },
+    "confirmation": {
+      "title": "Your booking is confirmed",
+      "intro": "We look forward to welcoming you to Salonki.",
+      "room": "Meeting room",
+      "date": "Date",
+      "times": "Times",
+      "guests": "Guests",
+      "reservedBy": "Reserved by",
+      "extras": "Food & drinks",
+      "none": "No extras selected.",
+      "contact": "Contact details",
+      "notes": "Notes",
+      "save": "Save your private cancellation link. Anyone with this link can cancel your booking before the deadline.",
+      "cancel": "Cancel this booking",
+      "newBooking": "Make another booking",
+      "copy": "Copy cancellation link",
+      "copied": "Link copied.",
+      "copyFailed": "Could not copy automatically. Select and copy the link below.",
+      "link": "Private cancellation link",
+      "deadline": "Cancellation closes",
+      "timezone": "All times are local to Vaasa (Europe/Helsinki).",
+      "emailQueued": "Your confirmation email has been queued. Please save the link below while it is on its way.",
+      "noEmail": "Please save these details and your cancellation link before leaving this page.",
+      "print": "Print / save details"
+    },
+    "cancellation": {
+      "title": "Cancel your booking",
+      "intro": "Are you sure you want to cancel your meeting room booking?",
+      "policy": "You can cancel strictly before the two-hour deadline for your first selected slot. All times follow Europe/Helsinki.",
+      "confirm": "Confirm cancellation",
+      "submitting": "Cancelling…",
+      "loading": "Loading your cancellation link…",
+      "successTitle": "Booking cancelled",
+      "success": "Your reservation has been cancelled. Your original booking details are retained.",
+      "back": "Back to booking",
+      "errors": {
+        "invalidToken": "This cancellation link is invalid. Please use the full link from your confirmation.",
+        "notFound": "We could not find this booking. Please check your cancellation link.",
+        "notActive": "This booking cannot be cancelled online.",
+        "noSlots": "We could not find the times for this booking. Please contact Salonki.",
+        "deadlinePassed": "The cancellation deadline has passed. Online cancellation is no longer available.",
+        "unavailable": "Cancellation is temporarily unavailable. Please try again.",
+        "network": "The connection was interrupted. You can safely try again."
+      }
+    }
   }
 }

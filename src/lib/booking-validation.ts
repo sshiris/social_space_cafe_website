@@ -1,5 +1,6 @@
+import { isLocale } from "../i18n/locales";
 import { meetingRoomSlots } from "./booking-slots";
-import { drinkPackages, snackPackages } from "./booking-extras";
+import { drinkPackages, snackPackages, MAX_EXTRAS_PER_CATEGORY } from "./booking-extras";
 
 export function isBookingDate(value: unknown): value is string {
   if (
@@ -21,6 +22,7 @@ export function isBookingEmail(value: string) {
 export function validateBooking(value: unknown) {
   if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const data = value as Record<string, unknown>;
+  if (data.locale !== undefined && (typeof data.locale !== "string" || !isLocale(data.locale))) return null;
   if (
     !isBookingDate(data.date) ||
     !Array.isArray(data.selectedSlots) ||
@@ -74,7 +76,7 @@ export function validateBooking(value: unknown) {
       typeof item.quantity === "number" &&
       Number.isInteger(item.quantity) &&
       item.quantity > 0 &&
-      item.quantity <= 100
+      item.quantity <= MAX_EXTRAS_PER_CATEGORY
     );
   });
   if (!validPackages) return null;
@@ -87,7 +89,7 @@ export function validateBooking(value: unknown) {
     0,
   );
 
-  if (totalSnackPackages > 100) return null;
+  if (totalSnackPackages > MAX_EXTRAS_PER_CATEGORY) return null;
 
   const selectedPackages = data.selectedPackages.map((item) => ({
     packageId: item.packageId as string,
@@ -106,7 +108,7 @@ export function validateBooking(value: unknown) {
       typeof item.quantity === "number" &&
       Number.isInteger(item.quantity) &&
       item.quantity > 0 &&
-      item.quantity <= 100
+      item.quantity <= MAX_EXTRAS_PER_CATEGORY
     );
   });
   if (!validDrinks) return null;
@@ -119,7 +121,7 @@ export function validateBooking(value: unknown) {
     0,
   );
 
-  if (totalDrinkPackages > 100) return null;
+  if (totalDrinkPackages > MAX_EXTRAS_PER_CATEGORY) return null;
   const selectedDrinks = data.selectedDrinks.map((item) => ({
     drinkId: item.drinkId as string,
     quantity: item.quantity as number,
@@ -127,6 +129,7 @@ export function validateBooking(value: unknown) {
 
   return {
     date: data.date,
+    locale: typeof data.locale === "string" && isLocale(data.locale) ? data.locale : "en" as const,
     slots: meetingRoomSlots.filter(
       (slot) =>
         data.selectedSlots instanceof Array &&
@@ -154,7 +157,7 @@ export function isBookingConflict(error: unknown): boolean {
   };
   return (
     (candidate.code === "23505" &&
-      candidate.constraint_name === "booking_slot_unique") ||
+      ["booking_slot_unique", "booking_slot_active_unique"].includes(candidate.constraint_name ?? "")) ||
     (candidate.cause !== undefined &&
       candidate.cause !== error &&
       isBookingConflict(candidate.cause))

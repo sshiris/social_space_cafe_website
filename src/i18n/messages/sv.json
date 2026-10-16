@@ -117,10 +117,74 @@
     "submit": "Bekräfta bokning",
     "submitting": "Bokar…",
     "success": "Din bokning är bekräftad.",
-    "conflict": "En eller flera valda tider har just bokats. Tillgängligheten har uppdaterats. Kontrollera ditt val.",
+    "conflict": "En eller flera valda tider har just bokats. Kontrollera ditt val när tillgängligheten har laddats om.",
     "submitError": "Bokningen kunde inte genomföras. Försök igen.",
     "networkError": "Anslutningen avbröts. Kontrollera tillgängligheten innan du försöker igen; din bokning kan ha sparats.",
     "required": "Obligatoriska fält är markerade med *.",
-    "full": "Inga tider är lediga detta datum. Välj ett annat datum."
+    "full": "Inga tider är lediga detta datum. Välj ett annat datum.",
+    "eyebrow": "Mötas på Salonki",
+    "extras": {
+      "food": "Mat till mötet",
+      "drinks": "Extra drycker",
+      "optional": "Valfritt · välj högst 100 per kategori.",
+      "increase": "Lägg till en",
+      "decrease": "Ta bort en",
+      "quantity": "Antal",
+      "total": "Valda",
+      "items": {
+        "savory": "Salt",
+        "sweet": "Sött",
+        "combo": "Kombination",
+        "white_wine": "Vitt vin",
+        "red_wine": "Rött vin",
+        "beer": "Öl",
+        "cocktail": "Cocktail"
+      }
+    },
+    "confirmation": {
+      "title": "Din bokning är bekräftad",
+      "intro": "Vi ser fram emot att välkomna dig till Salonki.",
+      "room": "Mötesrum",
+      "date": "Datum",
+      "times": "Tider",
+      "guests": "Antal personer",
+      "reservedBy": "Bokad av",
+      "extras": "Mat och dryck",
+      "none": "Inga tillval valda.",
+      "contact": "Kontaktuppgifter",
+      "notes": "Meddelande",
+      "save": "Spara din privata avbokningslänk. Den som har länken kan avboka före tidsgränsen.",
+      "cancel": "Avboka denna bokning",
+      "newBooking": "Gör en ny bokning",
+      "copy": "Kopiera avbokningslänk",
+      "copied": "Länken har kopierats.",
+      "copyFailed": "Länken kunde inte kopieras automatiskt. Markera och kopiera länken nedan.",
+      "link": "Privat avbokningslänk",
+      "deadline": "Avbokningstiden löper ut",
+      "timezone": "Alla tider är lokal tid i Vasa (Europe/Helsinki).",
+      "emailQueued": "Ditt bekräftelsemejl ligger i kö. Spara länken nedan medan du väntar.",
+      "noEmail": "Spara uppgifterna och avbokningslänken innan du lämnar sidan.",
+      "print": "Skriv ut / spara uppgifter"
+    },
+    "cancellation": {
+      "title": "Avboka din bokning",
+      "intro": "Är du säker på att du vill avboka mötesrummet?",
+      "policy": "Du kan avboka före tidsgränsen, som är två timmar före din första valda tid. Alla tider följer Europe/Helsinki.",
+      "confirm": "Bekräfta avbokning",
+      "submitting": "Avbokar…",
+      "loading": "Laddar din avbokningslänk…",
+      "successTitle": "Bokningen är avbokad",
+      "success": "Din bokning har avbokats. De ursprungliga bokningsuppgifterna sparas.",
+      "back": "Tillbaka till bokning",
+      "errors": {
+        "invalidToken": "Avbokningslänken är ogiltig. Använd hela länken från din bekräftelse.",
+        "notFound": "Bokningen kunde inte hittas. Kontrollera avbokningslänken.",
+        "notActive": "Denna bokning kan inte avbokas online.",
+        "noSlots": "Bokningens tider kunde inte hittas. Kontakta Salonki.",
+        "deadlinePassed": "Avbokningstiden har gått ut. Bokningen kan inte längre avbokas online.",
+        "unavailable": "Avbokning är tillfälligt otillgänglig. Försök igen.",
+        "network": "Anslutningen avbröts. Du kan tryggt försöka igen."
+      }
+    }
   }
 }

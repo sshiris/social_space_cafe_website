@@ -1,24 +1,11 @@
 import assert from "node:assert/strict";
-import { readFileSync } from "node:fs";
-import { createRequire } from "node:module";
 import test from "node:test";
-import ts from "typescript";
+import { load } from "./helpers.mjs";
 
-// Load the TypeScript route with a database double; no customer database is changed.
-const require = createRequire(import.meta.url);
-function load(path, dependencies = {}) {
-  const source = readFileSync(new URL(path, import.meta.url), "utf8");
-  const { outputText } = ts.transpileModule(source, { compilerOptions: { module: ts.ModuleKind.CommonJS } });
-  const loaded = { exports: {} };
-  new Function("require", "module", "exports", outputText)(
-    (name) => name in dependencies ? dependencies[name] : require(name), loaded, loaded.exports,
-  );
-  return loaded.exports;
-}
 const slots = load("../src/lib/booking-slots.ts");
 const validation = load("../src/lib/booking-validation.ts", { "./booking-slots": slots });
 const schema = load("../src/db/schema.ts");
-const valid = { date: "2028-02-29", selectedSlots: ["14:00", "09:00"], name: " Test Guest ", email: "guest@example.com", numberOfPeople: 3 };
+const valid = { date: "2028-02-29", selectedSlots: ["14:00", "09:00"], name: " Test Guest ", email: "guest@example.com", numberOfPeople: 3, selectedPackages: [], selectedDrinks: [] };
 const conflict = { cause: { code: "23505", constraint_name: "booking_slot_unique" } };
 function route(db) {
   return load("../src/app/api/bookings/route.ts", { "@/db": { db }, "@/db/schema": schema, "@/lib/booking-validation": validation });
@@ -74,7 +61,9 @@ test("POST writes one booking and non-consecutive slots within the same transact
   } });
   const response = await api.POST(request(valid));
   assert.equal(response.status, 201);
-  assert.deepEqual(await response.json(), { success: true });
+  const body = await response.json();
+  assert.equal(body.success, true);
+  assert.match(body.cancellationToken, /^[a-f0-9]{64}$/);
   assert.equal(transactions, 1);
   assert.equal(inserts.length, 2);
   assert.equal(inserts[0].table, schema.bookings);

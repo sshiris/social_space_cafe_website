@@ -1,3 +1,5 @@
+export const MAX_EXTRAS_PER_CATEGORY = 100;
+
 
 export const snackPackages = [
   { id: "savory", name: "Savory" },

@@ -117,10 +117,74 @@
     "submit": "Vahvista varaus",
     "submitting": "Varataan…",
     "success": "Varauksesi on vahvistettu.",
-    "conflict": "Yksi tai useampi valitsemasi aika on juuri varattu. Varaustilanne on päivitetty. Tarkista valintasi.",
+    "conflict": "Yksi tai useampi valitsemasi aika on juuri varattu. Tarkista valintasi, kun varaustilanne on ladattu uudelleen.",
     "submitError": "Varausta ei voitu tehdä. Yritä uudelleen.",
     "networkError": "Yhteys katkesi. Tarkista varaustilanne ennen uutta yritystä; varauksesi on saattanut tallentua.",
     "required": "Pakolliset kentät on merkitty tähdellä *.",
-    "full": "Tälle päivälle ei ole vapaita aikoja. Valitse toinen päivä."
+    "full": "Tälle päivälle ei ole vapaita aikoja. Valitse toinen päivä.",
+    "eyebrow": "Kokoonnu Salonkiin",
+    "extras": {
+      "food": "Tarjoilut kokoukseen",
+      "drinks": "Lisäjuomat",
+      "optional": "Valinnainen · enintään 100 tuotetta ryhmää kohden.",
+      "increase": "Lisää yksi",
+      "decrease": "Poista yksi",
+      "quantity": "Määrä",
+      "total": "Valittu",
+      "items": {
+        "savory": "Suolainen",
+        "sweet": "Makea",
+        "combo": "Yhdistelmä",
+        "white_wine": "Valkoviini",
+        "red_wine": "Punaviini",
+        "beer": "Olut",
+        "cocktail": "Cocktail"
+      }
+    },
+    "confirmation": {
+      "title": "Varauksesi on vahvistettu",
+      "intro": "Tervetuloa Salonkiin!",
+      "room": "Kokoustila",
+      "date": "Päivämäärä",
+      "times": "Ajat",
+      "guests": "Henkilömäärä",
+      "reservedBy": "Varaaja",
+      "extras": "Ruoka ja juomat",
+      "none": "Ei lisätarjoiluja.",
+      "contact": "Yhteystiedot",
+      "notes": "Lisätiedot",
+      "save": "Säilytä yksityinen peruutuslinkkisi. Linkin haltija voi perua varauksen ennen määräaikaa.",
+      "cancel": "Peru tämä varaus",
+      "newBooking": "Tee uusi varaus",
+      "copy": "Kopioi peruutuslinkki",
+      "copied": "Linkki kopioitu.",
+      "copyFailed": "Automaattinen kopiointi ei onnistunut. Valitse ja kopioi alla oleva linkki.",
+      "link": "Yksityinen peruutuslinkki",
+      "deadline": "Peruutusaika päättyy",
+      "timezone": "Kaikki ajat ovat Vaasan paikallista aikaa (Europe/Helsinki).",
+      "emailQueued": "Vahvistusviestisi on lähetysjonossa. Tallenna alla oleva linkki viestiä odottaessasi.",
+      "noEmail": "Tallenna tiedot ja peruutuslinkki ennen sivulta poistumista.",
+      "print": "Tulosta / tallenna tiedot"
+    },
+    "cancellation": {
+      "title": "Peru varauksesi",
+      "intro": "Haluatko varmasti perua kokoustilavarauksesi?",
+      "policy": "Varauksen voi perua ennen määräaikaa, joka on kaksi tuntia ennen ensimmäistä valittua aikaa. Ajat ovat aikavyöhykkeellä Europe/Helsinki.",
+      "confirm": "Vahvista peruutus",
+      "submitting": "Peruutetaan…",
+      "loading": "Ladataan peruutuslinkkiä…",
+      "successTitle": "Varaus peruttu",
+      "success": "Varauksesi on peruttu. Alkuperäiset varaustiedot säilytetään.",
+      "back": "Takaisin varauksiin",
+      "errors": {
+        "invalidToken": "Peruutuslinkki on virheellinen. Käytä vahvistuksessa olevaa kokonaista linkkiä.",
+        "notFound": "Varausta ei löytynyt. Tarkista peruutuslinkkisi.",
+        "notActive": "Tätä varausta ei voi perua verkossa.",
+        "noSlots": "Varauksen aikoja ei löytynyt. Ota yhteyttä Salonkiin.",
+        "deadlinePassed": "Peruutusaika on päättynyt. Varausta ei voi enää perua verkossa.",
+        "unavailable": "Peruutus ei ole juuri nyt käytettävissä. Yritä uudelleen.",
+        "network": "Yhteys katkesi. Voit turvallisesti yrittää uudelleen."
+      }
+    }
   }
 }
